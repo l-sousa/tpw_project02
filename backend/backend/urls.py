@@ -46,5 +46,5 @@ urlpatterns = [
     path('ws/orderupd', views.update_order),
     path('ws/orderdel/<int:id>', views.del_order),
 
-
+    path('ws/signup', views.signup),
 ]

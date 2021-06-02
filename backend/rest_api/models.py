@@ -1,6 +1,28 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+
+class User(AbstractUser):
+    is_customer = models.BooleanField(default=False)
+    is_manager = models.BooleanField(default=False)
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return self.user.username
+
+
+class Manager(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return self.user.username
+
+
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -30,7 +52,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    # client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now_add=True)
     products = models.ManyToManyField(Product)
     is_complete = models.BooleanField(default=False)

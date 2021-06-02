@@ -16,6 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from rest_api import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # web services
+    path('ws/product', views.get_product),
+    path('ws/products', views.get_products),
+    path('ws/productcre', views.create_product),
+    path('ws/productupd', views.update_product),
+    path('ws/productdel/<int:id>', views.del_product),
+
+
 ]

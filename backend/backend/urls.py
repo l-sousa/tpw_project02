@@ -40,5 +40,11 @@ urlpatterns = [
     path('ws/brandupd', views.update_brand),
     path('ws/branddel/<int:id>', views.del_brand),
 
+    path('ws/order', views.get_order),
+    path('ws/myorders', views.get_userorders),
+    path('ws/ordercre', views.create_order),
+    path('ws/orderupd', views.update_order),
+    path('ws/orderdel/<int:id>', views.del_order),
+
 
 ]

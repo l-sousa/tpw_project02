@@ -179,3 +179,62 @@ def del_brand(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     brand.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+'''
+    ORDERS
+'''
+# web service to get a specific order
+@api_view(['GET'])
+def get_order(request):
+    id = int(request.GET['id'])
+    try:
+        order = Order.objects.get(id=id)
+    except Order.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = OrderSerializer(order)
+    return Response(serializer.data)
+
+# web service to get a list of orders, for a given user
+@api_view(['GET'])
+def get_userorders(request):
+    user_id = int(request.GET['user_id'])
+    try:
+        orders = Order.objects.get(user_id=user_id)
+    except Order.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
+
+# web service to create a order
+@api_view(['POST'])
+def create_order(request):
+    serializer = OrderSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# web service to update a order
+@api_view(['PUT'])
+def update_order(request):
+    id = request.data['id']
+    try:
+        order = Order.objects.get(id=id)
+    except Order.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = OrderSerializer(order, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# web service to delete a order
+@api_view(['DELETE'])
+def del_order(request, id):
+    try:
+        order = Order.objects.get(id=id)
+    except Order.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    order.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)

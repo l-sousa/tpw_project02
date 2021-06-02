@@ -121,3 +121,61 @@ def del_category(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
     category.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+'''
+    BRANDS
+'''
+# web service to get a specific brand
+@api_view(['GET'])
+def get_brand(request):
+    id = int(request.GET['id'])
+    try:
+        brand = Brand.objects.get(id=id)
+    except Brand.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = BrandSerializer(brand)
+    return Response(serializer.data)
+
+# web service to get a list of brands
+@api_view(['GET'])
+def get_brands(request):
+    brands = Brand.objects.all()
+    if 'num' in request.GET:
+        num = int(request.GET['num'])
+        brands = brands[:num]
+    serializer = BrandSerializer(brands, many=True)
+    return Response(serializer.data)
+
+# web service to create a brand
+@api_view(['POST'])
+def create_brand(request):
+    serializer = BrandSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# web service to update a brand
+@api_view(['PUT'])
+def update_brand(request):
+    id = request.data['id']
+    try:
+        brand = Brand.objects.get(id=id)
+    except Brand.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = BrandSerializer(brand, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# web service to delete a brand
+@api_view(['DELETE'])
+def del_brand(request, id):
+    try:
+        brand = Brand.objects.get(id=id)
+    except Brand.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    brand.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)

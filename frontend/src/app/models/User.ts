@@ -1,12 +1,10 @@
 export class User {
-  id: number;
   username: string;
   password: string;
   is_customer: boolean;
   is_manager: boolean;
 
-  constructor(id: number, username: string, password: string, email: string) {
-    this.id = id;
+  constructor(username: string, password: string) {
     this.username = username;
     this.password = password;
     this.is_customer = false;

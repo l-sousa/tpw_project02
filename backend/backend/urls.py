@@ -13,9 +13,21 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from xml.etree.ElementInclude import include
+
 from django.contrib import admin
 from django.urls import path
 
+from rest_api import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('ws/signup', views.signup),
+
+
+    # path('/', include((
+    #   [
+    #      path('choose_exam', views.choose_exam, name="choose_exam"),
+    # ], 'rest_api'), namespace='teacher')),
 ]

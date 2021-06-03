@@ -22,13 +22,18 @@ import {MatDividerModule} from "@angular/material/divider";
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { BrandsComponent } from './brands/brands.component';
+
+import { CarouselDirective } from './brands/carousel.directive';
 @NgModule({
   declarations: [
     AppComponent,
     MainContentComponent,
     LoginComponent,
     SignupComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    BrandsComponent,
+    CarouselDirective
   ],
   imports: [
     BrowserModule,

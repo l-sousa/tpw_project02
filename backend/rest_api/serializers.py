@@ -39,6 +39,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class BrandSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True, many=True)
+
     class Meta:
         model = Brand
         fields = ('id', 'name', 'category')

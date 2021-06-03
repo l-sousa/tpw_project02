@@ -11,8 +11,8 @@
                             <div class="card">
                                 <img class="card-img-top img-fluid" src="https://images.freeimages.com/images/large-previews/85a/daisy-s-1375598.jpg"  width="100" height="100" alt="Card image cap">
                               <div class="card-body">
-                                <h4 class="card-title">{{brand.name}}</h4>
-                                <p class="card-text" *ngFor = "let catid of brand.category">{{catid}}</p>
+                                <h4 class="card-title">{{ brand.name }}</h4>
+                                <p class="card-text" *ngFor = "let cat of brand.category">{{cat.name}}</p>
                               </div>
                             </div>
                           </div>                     
@@ -23,7 +23,7 @@
                                 <img class="card-img-top img-fluid" src="https://images.freeimages.com/images/large-previews/85a/daisy-s-1375598.jpg"  width="100" height="100" alt="Card image cap">
                               <div class="card-body">
                                 <h4 class="card-title">{{brand.name}}</h4>
-                                <p class="card-text" *ngFor = "let catid of brand.category">{{catid}}</p>
+                                <p class="card-text" *ngFor = "let cat of brand.category" >{{cat.name}}</p>
                               </div>
                             </div>
                           </div>                     

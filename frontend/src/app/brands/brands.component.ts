@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Brand } from '../models/Brand';
 import { BrandService } from '../services/brand/brand.service';
 
-
 @Component({
   selector: 'app-brands',
   templateUrl: './brands.component.html',
@@ -10,16 +9,20 @@ import { BrandService } from '../services/brand/brand.service';
 })
 export class BrandsComponent implements OnInit {
 
-  brands?: Brand[];
+  brands: Brand[];
+  
 
   constructor(private brandService: BrandService) {  }
 
   ngOnInit(): void {
     this.getBrands();
+    
   }
+    
 
   getBrands(): void {
     this.brandService.getBrands().subscribe(brands => this.brands = brands);
+  
   }
 
 }

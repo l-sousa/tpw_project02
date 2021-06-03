@@ -11,8 +11,8 @@ export class BrandService {
 
   constructor(private http: HttpClient) { }
 
-  getBrands(): Observable<Brand[]> {
+  getBrands(): Observable<any[]> {
     const url = environment.API_BASE_URL + 'brands';
-    return this.http.get<Brand[]>(url);
+    return this.http.get<any[]>(url);
   }
 }

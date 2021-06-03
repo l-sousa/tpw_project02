@@ -11,6 +11,8 @@ from rest_framework.permissions import AllowAny
 '''
     PRODUCTS
 '''
+
+
 # web service to get a specific product
 
 
@@ -24,6 +26,7 @@ def get_product(request):
     serializer = ProductSerializer(product)
     return Response(serializer.data)
 
+
 # web service to get a list of products
 
 
@@ -36,6 +39,7 @@ def get_products(request):
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
+
 # web service to create a product
 
 
@@ -46,6 +50,7 @@ def create_product(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # web service to update a product
 
@@ -63,6 +68,7 @@ def update_product(request):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 # web service to delete a product
 
 
@@ -79,6 +85,8 @@ def del_product(request, id):
 '''
     CATEGORIES
 '''
+
+
 # web service to get a specific category
 
 
@@ -92,6 +100,7 @@ def get_category(request):
     serializer = CategorySerializer(category)
     return Response(serializer.data)
 
+
 # web service to get a list of categories
 
 
@@ -104,6 +113,7 @@ def get_categories(request):
     serializer = CategorySerializer(categories, many=True)
     return Response(serializer.data)
 
+
 # web service to create a category
 
 
@@ -114,6 +124,7 @@ def create_category(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # web service to update a category
 
@@ -131,6 +142,7 @@ def update_category(request):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 # web service to delete a category
 
 
@@ -147,6 +159,8 @@ def del_category(request, id):
 '''
     BRANDS
 '''
+
+
 # web service to get a specific brand
 
 
@@ -160,6 +174,7 @@ def get_brand(request):
     serializer = BrandSerializer(brand)
     return Response(serializer.data)
 
+
 # web service to get a list of brands
 
 
@@ -172,6 +187,7 @@ def get_brands(request):
     serializer = BrandSerializer(brands, many=True)
     return Response(serializer.data)
 
+
 # web service to create a brand
 
 
@@ -182,6 +198,7 @@ def create_brand(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # web service to update a brand
 
@@ -199,6 +216,7 @@ def update_brand(request):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 # web service to delete a brand
 
 
@@ -215,6 +233,8 @@ def del_brand(request, id):
 '''
     ORDERS
 '''
+
+
 # web service to get a specific order
 
 
@@ -227,6 +247,7 @@ def get_order(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = OrderSerializer(order)
     return Response(serializer.data)
+
 
 # web service to get a list of orders, for a given user
 
@@ -241,6 +262,7 @@ def get_userorders(request):
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
 
+
 # web service to create a order
 
 
@@ -251,6 +273,7 @@ def create_order(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # web service to update a order
 
@@ -268,6 +291,7 @@ def update_order(request):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 # web service to delete a order
 
 
@@ -284,16 +308,16 @@ def del_order(request, id):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def signup(request):
-
     req_data = request.data
-    user = User.objects.create(is_customer=True)
+    print(req_data)
+    user = User.objects.create(username=req_data['username'], password=req_data['password'], is_customer=True)
     req_data['user'] = user.pk
 
     if req_data['user_type'] == "customer":
         serializer = CustomerSerializer(data=req_data)
         if serializer.is_valid():
             serializer.save()
-
+            print("NAME ", serializer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     if req_data['user_type'] == "manager":

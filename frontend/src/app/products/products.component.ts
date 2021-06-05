@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Category } from '../models/Category';
 import { Product } from '../models/Product';
 import { ProductService } from '../services/product/product.service';
 
+let category = <any>{};
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',

@@ -20,8 +20,27 @@ SECRET_KEY = 'django-insecure-l06qq)$97t0p-c8jb6d0v!qy589qkwh&$2bbujqw7o8q+szq%k
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# CORS Config
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:4200'
+]
 
-ALLOWED_HOSTS = ['*']
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'jwt'
+]
+
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -35,11 +54,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_api',
     'corsheaders',
+    'rest_framework.authtoken',
 
 ]
-AUTH_USER_MODEL = "rest_api.User"
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,7 +67,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 
 ]
 
@@ -123,4 +142,16 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_ALLOW_ALL = True
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+
+    ],
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}
+
+AUTH_USER_MODEL = "rest_api.User"

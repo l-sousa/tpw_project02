@@ -1,138 +1,23 @@
+<style>
+  a:link, a:visited {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  a:hover, a:active {
+    color: lightblue;
+  }
+</style>
+
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
-               [opened]="(isHandset$ | async) === false">
+               [opened]="(isHandset$ | async) === true">
     <mat-toolbar>Carrinho</mat-toolbar>
     <mat-nav-list>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
-
-      <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-        <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
-        </div>
-        <div class="col"><a style="height: 100%" mat-list-item>
-          <mat-icon color="accent">delete</mat-icon>
-        </a></div>
-      </div>
 
       <div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
         <div class="col-7" style="display: flex;align-items: center;"><a style="word-break: break-word;">Item X</a>
@@ -150,7 +35,12 @@
               aria-label="Example icon button with a menu icon">
         <mat-icon>shopping_cart</mat-icon>
       </button>
-      <span>Mercadinho dos Cliques</span>
+
+      <span style="margin-right: 3%">Carrinho</span>
+      <a style="margin-right: 1%" routerLink="/login" *ngIf="!authenticated">| Login |</a>
+      <a style="margin-right: 1%" routerLink="/signup"*ngIf="!authenticated">Signup |</a>
+      <a style="margin-right: 1%" *ngIf="authenticated" (click)="logout()">Logout</a>
+
     </mat-toolbar>
     <!-- Add Content Here -->
 

@@ -6,14 +6,15 @@ import {environment} from "../../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
-export class SignupService {
+export class LoginService {
+
 
   constructor(private http: HttpClient) {
   }
 
-  signup(user: {}): Observable<any> {
-    const url = environment.API_BASE_URL + 'signup';
+  login(data: {}): Observable<any> {
+    const url = environment.API_BASE_URL + 'login';
 
-    return this.http.post(url, user, environment.HTTP_OPTIONS);
+    return this.http.post(url, data, {withCredentials: true})
   }
 }

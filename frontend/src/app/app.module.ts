@@ -22,6 +22,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AppRoutingModule } from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     ForgotPasswordComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -47,7 +49,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     ReactiveFormsModule,
     MatGridListModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

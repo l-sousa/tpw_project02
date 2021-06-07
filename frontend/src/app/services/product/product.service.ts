@@ -15,4 +15,9 @@ export class ProductService {
     const url = environment.API_BASE_URL + 'products';
     return this.http.get<Product[]>(url);
   }
+
+  getProductId(id: number): Observable<Product> {
+    const url = environment.API_BASE_URL + 'product?id=' + id;
+    return this.http.get<Product>(url);
+  }
 }

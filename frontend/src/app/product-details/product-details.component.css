@@ -1,0 +1,33 @@
+mat-grid-tile {
+    background: lightblue;
+}
+
+.header-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    background-image: url('../static/images/banner.jpeg');
+    background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
+}
+  
+  
+.header-box {
+    height: 450px;
+    width: 100%;
+  }
+
+.example-large-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    height: 600px;
+    padding-top: 80px;
+}

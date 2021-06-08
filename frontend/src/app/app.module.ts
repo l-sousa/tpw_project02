@@ -1,7 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -26,6 +25,7 @@ import { ProductsComponent } from './products/products.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     ProductDetailsComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -61,6 +62,5 @@ import {MatTabsModule} from '@angular/material/tabs';
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
-
 })
 export class AppModule { }

@@ -36,6 +36,7 @@ urlpatterns = [
 
     path('ws/brand', views.get_brand),
     path('ws/brands', views.get_brands),
+    path('ws/productsofbrand', views.get_brandproducts),
     path('ws/brandcre', views.create_brand),
     path('ws/brandupd', views.update_brand),
     path('ws/branddel/<int:id>', views.del_brand),

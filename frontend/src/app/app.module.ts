@@ -18,13 +18,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MainContentComponent } from './main-content/main-content.component';
-import {MatDividerModule} from "@angular/material/divider";
+import { MatDividerModule } from "@angular/material/divider";
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { BrandsComponent } from './brands/brands.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { CarouselDirective } from './brands/carousel.directive';
+import { BrandProductsListComponent } from './brand-products-list/brand-products-list.component';
+import { AppRoutingModule } from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,8 @@ import { CarouselDirective } from './brands/carousel.directive';
     SignupComponent,
     ForgotPasswordComponent,
     BrandsComponent,
-    CarouselDirective
+    CarouselDirective,
+    BrandProductsListComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import { CarouselDirective } from './brands/carousel.directive';
     ReactiveFormsModule,
     MatGridListModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    AppRoutingModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

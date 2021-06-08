@@ -175,6 +175,20 @@ def get_brand(request):
     return Response(serializer.data)
 
 
+# web service to get products of a specific brand
+
+
+@api_view(['GET'])
+def get_brandproducts(request):
+    id = int(request.GET['id'])
+    try:
+        products = Product.objects.filter(brand__id=id)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+
 # web service to get a list of brands
 
 

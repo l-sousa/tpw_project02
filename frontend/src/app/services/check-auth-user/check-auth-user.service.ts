@@ -26,16 +26,15 @@ export class CheckAuthUserService {
 
   // @ts-ignore
   check(): Observable<any> {
-    console.log("CHECK AUTH SERVICE")
     const url = environment.API_BASE_URL + 'user';
     this.http.get(url, {
       withCredentials: true, headers: new HttpHeaders({
-
         'jwt': ((this.getCookie('jwt')) ? this.getCookie('jwt').toString() : this.getCookie('jwt')),
       }),
     }).subscribe(
       (res: any) => {
         Emitters.authEmitter.emit(true);
+        Emitters.userEmitter.emit(res["username"]);
       },
       err => {
         Emitters.authEmitter.emit(false);

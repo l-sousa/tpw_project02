@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
@@ -7,6 +7,7 @@ import {Emitters} from '../emitters/emitters';
 import {Router} from '@angular/router';
 import {LogoutService} from '../services/logout/logout.service';
 import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.service';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-main-content',
@@ -15,6 +16,7 @@ import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.
 })
 export class MainContentComponent {
   message = '';
+  @ViewChild('drawer') sidenav: MatSidenav;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -24,7 +26,6 @@ export class MainContentComponent {
 
   authenticated: boolean | undefined;
   error: boolean | undefined;
-
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -62,10 +63,15 @@ export class MainContentComponent {
       .subscribe((res: any) => {
           this.deleteCookie('jwt');
           this.authenticated = false
+          localStorage.clear();
           this.router.navigate(['']);
         },
         (err: HttpErrorResponse) => {
           this.error = true;
         });
+  }
+
+  closeSidenav() {
+    this.sidenav.close();
   }
 }

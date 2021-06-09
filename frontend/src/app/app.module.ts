@@ -25,6 +25,8 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AppRoutingModule } from './app-routing.module';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { AppRoutingModule } from './app-routing.module';
     SignupComponent,
     ForgotPasswordComponent,
     ProductsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ShoppingCartComponent,
+    CheckoutComponent
   ],
   imports: [
     AppRoutingModule,

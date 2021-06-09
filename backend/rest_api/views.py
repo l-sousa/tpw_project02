@@ -267,18 +267,28 @@ def get_userorders(request):
 
 
 # web service to create a order
-
-
 @api_view(['POST'])
 def create_order(request):
-    serializer = OrderSerializer(data=request.data)
+    print(request.data)
+
+    user = User.objects.get(username=request.data['username'])
+    customer = Customer.objects.get(user=user).pk
+
+    if customer is None:
+        raise NotAuthenticated('User not valid!');
+
+    products = []
+    for prod in request.data['products']:
+        product = Product.objects.filter(id=prod['id']).first()
+        products.append(product.pk)
+
+    order_data = {'customer': customer, 'products': products}
+
+    serializer = OrderSerializer(data=order_data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# web service to update a order
 
 
 @api_view(['PUT'])
@@ -296,8 +306,6 @@ def update_order(request):
 
 
 # web service to delete a order
-
-
 @api_view(['DELETE'])
 def del_order(request, id):
     try:
@@ -320,7 +328,6 @@ def signup(request):
         serializer = CustomerSerializer(data=req_data)
         if serializer.is_valid():
             serializer.save()
-            print("NAME ", serializer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     if req_data['user_type'] == "manager":
@@ -343,12 +350,9 @@ class LoginView(APIView):
         user = User.objects.filter(username=username).first()
 
         if user is None:
-            print("USER IS NONE")
             raise AuthenticationFailed('User not found!')
 
         if not user.password == password:
-            print("passowrd errada")
-
             raise AuthenticationFailed('Incorrect password!')
 
         payload = {
@@ -395,6 +399,4 @@ class UserView(APIView):
 
         user = User.objects.filter(id=payload['id']).first()
         serializer = UserSerializer(user)
-
         return Response(serializer.data)
-

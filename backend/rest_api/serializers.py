@@ -39,16 +39,19 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class BrandSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True, many=True)
+
     class Meta:
         model = Brand
         fields = ('id', 'name', 'category')
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True, many=True)
+    brand = BrandSerializer(read_only=True)
     class Meta:
         model = Product
-        fields = ('id', 'name', 'description', 'category',
-                  'brand', 'price', 'quantity', 'image')
+        fields = ('id', 'name', 'description', 'category', 'brand', 'price', 'quantity', 'image')
 
 
 class OrderSerializer(serializers.ModelSerializer):

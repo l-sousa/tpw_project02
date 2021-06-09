@@ -30,6 +30,7 @@ urlpatterns = [
 
     path('ws/category', views.get_category),
     path('ws/categories', views.get_categories),
+    path('ws/productsofcategory', views.get_categoryproducts),
     path('ws/categorycre', views.create_category),
     path('ws/categoryupd', views.update_category),
     path('ws/categorydel/<int:id>', views.del_category),

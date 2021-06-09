@@ -22,7 +22,7 @@
 							<div class="card">
 								<img class="card-img-top img-fluid" src="https://images.freeimages.com/images/large-previews/85a/daisy-s-1375598.jpg"  width="100" height="100" alt="Card image cap">
 								<div class="card-body">
-									<h4 class="card-title">{{brand.name}}</h4>
+                  <a routerLink="/brand/{{brand.id}}/products"><h4 class="card-title">{{brand.name}}</h4></a>
 									<p class="card-text" *ngFor = "let cat of brand.category" >{{cat.name}}</p>
 								</div>
 							</div>

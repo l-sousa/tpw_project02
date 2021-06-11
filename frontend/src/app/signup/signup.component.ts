@@ -17,8 +17,6 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   submitted = false;
   error = false;
-  customer: "customer" | undefined;
-  manager: "manager" | undefined;
 
   constructor(private service: SignupService, private form_builder: FormBuilder) {
     this.signupForm = form_builder.group({
@@ -38,7 +36,7 @@ export class SignupComponent implements OnInit {
     }
     this.service.signup(this.signupForm.value)
       .subscribe(res => {
-          alert(res);
+          console.log(res);
         },
         (err: HttpErrorResponse) => {
           this.error = true;
@@ -50,7 +48,4 @@ export class SignupComponent implements OnInit {
   }
 
 
-  onItemChange(value: any){
-    console.log(" Value is : ", value );
-  }
 }

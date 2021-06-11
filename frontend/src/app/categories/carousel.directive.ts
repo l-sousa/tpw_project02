@@ -5,7 +5,7 @@ import { AnimationBuilder, AnimationFactory, style, animate } from '@angular/ani
   selector: '.carousel-inner',
   exportAs: 'Carousel'
 })
-export class CarouselDirective implements OnInit {
+export class CarouselDirective2 implements OnInit {
 
   @Input() animationDuration = 500;
 

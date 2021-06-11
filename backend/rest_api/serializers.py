@@ -40,7 +40,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class BrandSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True, many=True)
-
     class Meta:
         model = Brand
         fields = ('id', 'name', 'category')
@@ -58,4 +57,4 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         # fields = ('id', 'client', 'order_date', 'products', 'is_complete')
-        fields = ('id', 'order_date', 'products', 'is_complete')
+        fields = ('id', 'customer', 'products')

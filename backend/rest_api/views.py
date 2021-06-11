@@ -5,6 +5,9 @@ from rest_framework.response import Response
 from rest_api.serializers import *
 from rest_api.models import *
 from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
+from rest_framework.exceptions import AuthenticationFailed
+import jwt, datetime
 
 # Create your views here.
 
@@ -189,6 +192,20 @@ def get_brand(request):
     return Response(serializer.data)
 
 
+# web service to get products of a specific brand
+
+
+@api_view(['GET'])
+def get_brandproducts(request):
+    id = int(request.GET['id'])
+    try:
+        products = Product.objects.filter(brand__id=id)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+
 # web service to get a list of brands
 
 
@@ -278,18 +295,28 @@ def get_userorders(request):
 
 
 # web service to create a order
-
-
 @api_view(['POST'])
 def create_order(request):
-    serializer = OrderSerializer(data=request.data)
+    print(request.data)
+
+    user = User.objects.get(username=request.data['username'])
+    customer = Customer.objects.get(user=user).pk
+
+    if customer is None:
+        raise NotAuthenticated('User not valid!');
+
+    products = []
+    for prod in request.data['products']:
+        product = Product.objects.filter(id=prod['id']).first()
+        products.append(product.pk)
+
+    order_data = {'customer': customer, 'products': products}
+
+    serializer = OrderSerializer(data=order_data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# web service to update a order
 
 
 @api_view(['PUT'])
@@ -307,8 +334,6 @@ def update_order(request):
 
 
 # web service to delete a order
-
-
 @api_view(['DELETE'])
 def del_order(request, id):
     try:
@@ -331,7 +356,6 @@ def signup(request):
         serializer = CustomerSerializer(data=req_data)
         if serializer.is_valid():
             serializer.save()
-            print("NAME ", serializer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     if req_data['user_type'] == "manager":
@@ -342,3 +366,65 @@ def signup(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@permission_classes([AllowAny])
+class LoginView(APIView):
+
+    def post(self, request):
+        password = request.data['password']
+        username = request.data['username']
+
+        user = User.objects.filter(username=username).first()
+
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+
+        if not user.password == password:
+            raise AuthenticationFailed('Incorrect password!')
+
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256')
+
+        response = Response()
+
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+
+        return response
+
+
+class LogoutView(APIView):
+    def post(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'success'
+        }
+        return response
+
+
+@permission_classes([AllowAny])
+class UserView(APIView):
+
+    def get(self, request):
+        token = request.headers['jwt']
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        user = User.objects.filter(id=payload['id']).first()
+        serializer = UserSerializer(user)
+        return Response(serializer.data)

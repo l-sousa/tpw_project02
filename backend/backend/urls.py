@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from rest_framework.authtoken import views as auth_views
 from rest_api import views
+from rest_api.views import LoginView, LogoutView, UserView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,6 +38,7 @@ urlpatterns = [
 
     path('ws/brand', views.get_brand),
     path('ws/brands', views.get_brands),
+    path('ws/productsofbrand', views.get_brandproducts),
     path('ws/brandcre', views.create_brand),
     path('ws/brandupd', views.update_brand),
     path('ws/branddel/<int:id>', views.del_brand),
@@ -48,4 +50,8 @@ urlpatterns = [
     path('ws/orderdel/<int:id>', views.del_order),
 
     path('ws/signup', views.signup),
+    path('ws/login', LoginView.as_view()),
+    path('ws/logout', LogoutView.as_view()),
+    path('ws/user', UserView.as_view()),
+
 ]

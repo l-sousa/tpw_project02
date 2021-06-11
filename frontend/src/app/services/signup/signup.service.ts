@@ -13,7 +13,7 @@ export class SignupService {
 
   signup(user: {}): Observable<any> {
     const url = environment.API_BASE_URL + 'signup';
-    
+
     return this.http.post(url, user, environment.HTTP_OPTIONS);
   }
 }

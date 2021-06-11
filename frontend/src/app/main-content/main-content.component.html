@@ -1,198 +1,54 @@
-<mat-sidenav-container class="sidenav-container">
+<style>
+  a:link, a:visited {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
 
-	<!-- Side Navbar, with user-cart -->
-	<mat-sidenav #drawer class="sidenav" fixedInViewport 
-		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-        [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="(isHandset$ | async) === false">
-			   
-		<mat-toolbar>Carrinho</mat-toolbar>
-		<mat-nav-list>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-			<div mat-list-item class="row" style="display: flex; justify-content: space-around; height: 5em;">
-				<div class="col-7" style="display: flex;align-items: center;">
-					<a style="word-break: break-word;">Item X</a>
-				</div>
-				<div class="col">
-					<a style="height: 100%" mat-list-item>
-						<mat-icon color="accent">delete</mat-icon>
-					</a>
-				</div>
-			</div>
-		</mat-nav-list>
-  	</mat-sidenav>
+  a:hover, a:active {
+    color: lightblue;
+  }
+</style>
 
-	<mat-sidenav-content>
-		<mat-toolbar color="primary">
-			<button (click)="drawer.toggle()" mat-icon-button color="accent"
-				aria-label="Example icon button with a menu icon">
-				<mat-icon>shopping_cart</mat-icon>
-			</button>
-			<span>Mercadinho dos Cliques</span>
-		</mat-toolbar>
+<mat-sidenav-container class="sidenav-container" >
 
-    	<!-- Add Content Here -->
-		<p>CONTENT PLACE</p>
-		<!-- METER AQUI COMPONENTES-->
-	</mat-sidenav-content>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === true">
 
+
+    <app-shopping-cart></app-shopping-cart>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div>
+
+      </div>
+      <button *ngIf="authenticated; else shoppingCartButtonNotAuthenticated" (click)="drawer.toggle()" mat-icon-button
+              color="accent"
+              aria-label="Example icon button with a menu icon">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
+
+      <ng-template #shoppingCartButtonNotAuthenticated>
+        <button onclick="alert('Faça login para aceder ao carrinho');" mat-icon-button
+                color="accent"
+                aria-label="Example icon button with a menu icon">
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+      </ng-template>
+
+      <span style="margin-right: 3%">Carrinho</span>
+      <a style="margin-right: 1%" routerLink="/login" *ngIf="!authenticated">| Login |</a>
+      <a style="margin-right: 1%" routerLink="/signup" *ngIf="!authenticated">Signup |</a>
+      <a style="margin-right: 1%" *ngIf="authenticated" (click)="logout()">Logout</a>
+
+    </mat-toolbar>
+    <!-- Add Content Here -->
+      <app-products></app-products>
+
+  </mat-sidenav-content>
 </mat-sidenav-container>

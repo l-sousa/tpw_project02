@@ -33,6 +33,10 @@ import { BrandsComponent } from './brands/brands.component';
 import { CarouselDirective } from './brands/carousel.directive';
 import { BrandProductsListComponent } from './brand-products-list/brand-products-list.component';
 
+import { CategoriesComponent } from './categories/categories.component';
+import { CarouselDirective2 } from './categories/carousel.directive';
+import { CategoryProductsListComponent } from './category-products-list/category-products-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,10 @@ import { BrandProductsListComponent } from './brand-products-list/brand-products
     CheckoutComponent, 
     BrandsComponent,
     CarouselDirective,
-    BrandProductsListComponent
+    BrandProductsListComponent, 
+    CategoriesComponent,
+    CarouselDirective2,
+    CategoryProductsListComponent
   ],
   imports: [
     AppRoutingModule,

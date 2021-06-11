@@ -1,9 +1,8 @@
-
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <section>
 	<div class="container">
-        <h1 id="products_title">Produtos da Marca {{ brand.name }}</h1>
+        <h1 id="products_title">Produtos da Categoria {{ category.name }}</h1>
         <div class="row">
             <ng-template let-product ngFor [ngForOf]="products">
                 <div class="col-md-4">

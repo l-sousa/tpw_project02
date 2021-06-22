@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 
 import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
 import { Emitters } from '../emitters/emitters';
+import { CategoryService } from '../services/category/category.service';
+import { BrandService } from '../services/brand/brand.service';
 
 @Component({
   selector: 'app-new-product',
@@ -15,14 +17,19 @@ import { Emitters } from '../emitters/emitters';
 export class NewProductComponent implements OnInit {
 
   authenticated: boolean | undefined;
-  newProductForm: FormGroup;
   submitted = false;
+  categories;
+  brands;
+  newProductForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
     private checkAuthUserService: CheckAuthUserService,
+    private categoryService: CategoryService,
+    private brandService: BrandService,
+    public fb: FormBuilder
   ) 
   {
     /* Makes it only available if the user is logged in
@@ -31,10 +38,23 @@ export class NewProductComponent implements OnInit {
       this.router.navigate(['']);
     }
     */
+    this.newProductForm = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      brand: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
+      image: ['', [Validators.required]],
+    })
   }
+
+  
 
   ngOnInit(): void {
     this.checkAuthUserService.check()
+    this.categoryService.getCategories().subscribe(res => (this.categories = res));
+    this.brandService.getBrands().subscribe(res => (this.brands = res));
 
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
@@ -42,6 +62,8 @@ export class NewProductComponent implements OnInit {
       }
     );
   }
+
+  
 
   goBack(): void {
 		this.location.back();

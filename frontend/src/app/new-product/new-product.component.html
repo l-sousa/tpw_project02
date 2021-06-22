@@ -23,13 +23,33 @@
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="product-details-box__details">
-                    <h3>DETALHES DO PRODUTO</h3>
+                    <h3>DETALHES DO PRODUTO A ADICIONAR</h3>
                     <!-- Login Form -->
                     <mat-form [formGroup]="newProductForm">
                         <div class="row" >
-                            <input type="text" formControlName="username" id="username" class="fadeIn second" name="username" placeholder="Nome do Produto">
+                            <input required name="name" id="name" type="text" class="fadeIn second" placeholder="Nome do Produto" formControlName="name">
                             <br>
-                            <input type="text" formControlName="password" id="password" class="fadeIn third" name="password"  placeholder="Categoria">
+                            <input required name="description" id="description" type="text" class="fadeIn second" placeholder="Descrição" formControlName="description">
+                            <br>
+                            <select required name="category" id="category" type="text" class="fadeIn third" placeholder="Categoria" formControlName="category">
+                                <option value="">-- Selecione uma categoria --</option>
+                                <option *ngFor="let item of categories" [ngValue]="item.name | lowercase " >
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                            <br>
+                            <select required name="brand" id="brand" type="text" class="fadeIn third" placeholder="Marca" formControlName="brand">
+                                <option value="">-- Selecione uma marca --</option>
+                                <option *ngFor="let item of brands" [ngValue]="item.name | lowercase " >
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                            <br>
+                            <input type="number" name="price" id="price" class="fadeIn third" placeholder="Preço" fromControlName="price">
+                            <br>
+                            <input type="number" name="quantity" id="quantity" class="fadeIn third" placeholder="Quantidade" fromControlName="quantity">
+                            <br>
+                            <input type="url" name="image" id="image" class="fadeIn third" placeholder="URL Imagem" fromControlName="image">
                             <br>
                             <input type="submit" class="button__submitproduct" value="submit" (click)="onSubmit()">
                         </div>

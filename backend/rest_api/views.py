@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
+from itertools import chain
 
 # Create your views here.
 
@@ -400,3 +401,17 @@ class UserView(APIView):
         user = User.objects.filter(id=payload['id']).first()
         serializer = UserSerializer(user)
         return Response(serializer.data)
+
+@api_view(['GET'])
+def search_products(request):
+    query = request.GET.get('query', '')
+    if query:
+        prods_by_brand = Product.objects.filter(brand__name__contains=query)
+        prods_by_category = Product.objects.filter(category__name__contains=query)
+        prods_by_name = Product.objects.filter(name__contains=query)
+        all_products = set(chain(prods_by_brand, prods_by_category, prods_by_name))
+        serializer = ProductSerializer(all_products, many=True)
+    else:
+        serializer = ProductSerializer(Product.objects.all(), many=True)
+        print("seru")
+    return Response(serializer.data)

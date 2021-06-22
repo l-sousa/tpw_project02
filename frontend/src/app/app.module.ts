@@ -27,6 +27,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ProductsComponent,
     ProductDetailsComponent,
     ShoppingCartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    SearchBarComponent
   ],
   imports: [
     AppRoutingModule,
@@ -60,7 +63,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     MatMenuModule,
     MatDividerModule,
     AppRoutingModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

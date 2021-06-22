@@ -118,6 +118,20 @@ def get_categories(request):
     return Response(serializer.data)
 
 
+# web service to get products of a specific category
+
+
+@api_view(['GET'])
+def get_categoryproducts(request):
+    id = int(request.GET['id'])
+    try:
+        products = Product.objects.filter(category__id=id)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+
 # web service to create a category
 
 
@@ -176,6 +190,20 @@ def get_brand(request):
     except Brand.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = BrandSerializer(brand)
+    return Response(serializer.data)
+
+
+# web service to get products of a specific brand
+
+
+@api_view(['GET'])
+def get_brandproducts(request):
+    id = int(request.GET['id'])
+    try:
+        products = Product.objects.filter(brand__id=id)
+    except Product.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
 

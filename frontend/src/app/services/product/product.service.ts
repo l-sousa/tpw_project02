@@ -20,4 +20,10 @@ export class ProductService {
     const url = environment.API_BASE_URL + 'product?id=' + id;
     return this.http.get<Product>(url);
   }
+
+  createProduct(data: {}): Observable<any> {
+    const url = environment.API_BASE_URL + 'productcre';
+
+    return this.http.post(url, data)
+  }
 }

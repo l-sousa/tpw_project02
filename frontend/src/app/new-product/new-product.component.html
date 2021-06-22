@@ -27,34 +27,35 @@
                     <!-- Login Form -->
                     <mat-form [formGroup]="newProductForm">
                         <div class="row" >
-                            <input required name="name" id="name" type="text" class="fadeIn second" placeholder="Nome do Produto" formControlName="name">
+                            <input name="name" id="name" type="text" class="fadeIn second" placeholder="Nome do Produto" formControlName="name">
                             <br>
-                            <input required name="description" id="description" type="text" class="fadeIn second" placeholder="Descrição" formControlName="description">
+                            <input name="description" id="description" type="text" class="fadeIn second" placeholder="Descrição" formControlName="description">
                             <br>
-                            <select required name="category" id="category" type="text" class="fadeIn third" placeholder="Categoria" formControlName="category">
+                            <select name="category" id="category" type="text" class="fadeIn third" placeholder="Categoria" formControlName="category">
                                 <option value="">-- Selecione uma categoria --</option>
-                                <option *ngFor="let item of categories" [ngValue]="item.name | lowercase " >
+                                <option *ngFor="let item of categories" [ngValue]="item.id" >
                                     {{ item.name }}
                                 </option>
                             </select>
                             <br>
-                            <select required name="brand" id="brand" type="text" class="fadeIn third" placeholder="Marca" formControlName="brand">
+                            <select name="brand" id="brand" type="text" class="fadeIn third" placeholder="Marca" formControlName="brand">
                                 <option value="">-- Selecione uma marca --</option>
-                                <option *ngFor="let item of brands" [ngValue]="item.name | lowercase " >
+                                <option *ngFor="let item of brands" [ngValue]="item.id" >
                                     {{ item.name }}
                                 </option>
                             </select>
                             <br>
-                            <input type="number" name="price" id="price" class="fadeIn third" placeholder="Preço" fromControlName="price">
+                            <input name="price" id="price" type="number" step=".01"  class="fadeIn third" placeholder="Preço" fromControlName="price">
                             <br>
-                            <input type="number" name="quantity" id="quantity" class="fadeIn third" placeholder="Quantidade" fromControlName="quantity">
+                            <input name="quantity" id="quantity" type="number" class="fadeIn third" placeholder="Quantidade" fromControlName="quantity">
                             <br>
                             <input type="url" name="image" id="image" class="fadeIn third" placeholder="URL Imagem" fromControlName="image">
                             <br>
-                            <input type="submit" class="button__submitproduct" value="submit" (click)="onSubmit()">
+                            <input type="submit" class="button__submitproduct" value="Adicionar!" (click)="onSubmit()">
                         </div>
                     </mat-form>
                 </div>
+                <br><br>
                 <br>
                 <div>
                     <button mat-raised-button class="button__go-back" (click)="goBack()">VOLTAR</button>

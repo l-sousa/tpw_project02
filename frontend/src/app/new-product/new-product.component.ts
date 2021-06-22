@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import  {FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import  { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common'; 
@@ -8,6 +9,8 @@ import { CheckAuthUserService } from '../services/check-auth-user/check-auth-use
 import { Emitters } from '../emitters/emitters';
 import { CategoryService } from '../services/category/category.service';
 import { BrandService } from '../services/brand/brand.service';
+import { ProductService } from '../services/product/product.service';
+
 
 @Component({
   selector: 'app-new-product',
@@ -18,6 +21,7 @@ export class NewProductComponent implements OnInit {
 
   authenticated: boolean | undefined;
   submitted = false;
+  error = false;
   categories;
   brands;
   newProductForm: FormGroup;
@@ -29,7 +33,8 @@ export class NewProductComponent implements OnInit {
     private checkAuthUserService: CheckAuthUserService,
     private categoryService: CategoryService,
     private brandService: BrandService,
-    public fb: FormBuilder
+    private productService: ProductService,
+    public fb: FormBuilder,
   ) 
   {
     /* Makes it only available if the user is logged in
@@ -44,9 +49,10 @@ export class NewProductComponent implements OnInit {
       category: ['', [Validators.required]],
       brand: ['', [Validators.required]],
       price: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
+      quantity: ['', [Validators.required] ],
       image: ['', [Validators.required]],
     })
+
   }
 
   
@@ -71,6 +77,21 @@ export class NewProductComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+    console.log(this.newProductForm.value);
+    // @ts-ignore
+    if (this.newProductForm.invalid) {
+      console.log("invalido");
+      return;
+    }
+    // @ts-ignore
+    this.productService.createProduct(this.newProductForm.value)
+      .subscribe((res: any) => {
+          console.log(res);
+          this.router.navigate(['/']);
+        },
+        (err: HttpErrorResponse) => {
+          this.error = true;
+        });
     
     console.log('YEET');
   }

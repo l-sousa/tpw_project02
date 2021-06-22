@@ -54,4 +54,6 @@ urlpatterns = [
     path('ws/logout', LogoutView.as_view()),
     path('ws/user', UserView.as_view()),
 
+    path('ws/search-products', views.search_products),
+
 ]

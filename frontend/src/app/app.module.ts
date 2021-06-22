@@ -29,6 +29,10 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { FormsModule }   from '@angular/forms';
+
 import { BrandsComponent } from './brands/brands.component';
 import { CarouselDirective } from './brands/carousel.directive';
 import { BrandProductsListComponent } from './brand-products-list/brand-products-list.component';
@@ -47,6 +51,8 @@ import { CategoryProductsListComponent } from './category-products-list/category
     ProductsComponent,
     ProductDetailsComponent,
     ShoppingCartComponent,
+    CheckoutComponent,
+    SearchBarComponent
     CheckoutComponent, 
     BrandsComponent,
     CarouselDirective,
@@ -75,7 +81,8 @@ import { CategoryProductsListComponent } from './category-products-list/category
     MatMenuModule,
     MatDividerModule,
     AppRoutingModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

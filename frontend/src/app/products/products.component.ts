@@ -3,6 +3,7 @@ import {Emitters} from '../emitters/emitters';
 import {Category} from '../models/Category';
 import {Product} from '../models/Product';
 import {ProductService} from '../services/product/product.service';
+import {SearchService} from '../services/search/search.service';
 
 let category = <any>{};
 
@@ -15,12 +16,17 @@ export class ProductsComponent implements OnInit {
 
   products: Product[];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private searchService: SearchService) {
   }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe(products => this.products = products);
 
+    Emitters.searchEmitter.subscribe(
+      (query: string) => {
+        this.searchService.getProducts({'query': query}).subscribe(products => this.products = products);
+      }
+    );
   }
 
   addToShoppingCart(product: Product) {

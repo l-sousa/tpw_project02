@@ -45,11 +45,11 @@
                                 </option>
                             </select>
                             <br>
-                            <input name="price" id="price" type="number" step=".01"  class="fadeIn third" placeholder="Preço" fromControlName="price">
+                            <input matInput name="price" id="price" type="number" step=".01"  class="fadeIn third" placeholder="Preço" formControlName="price">
                             <br>
-                            <input name="quantity" id="quantity" type="number" class="fadeIn third" placeholder="Quantidade" fromControlName="quantity">
+                            <input matInput name="quantity" id="quantity" type="number" class="fadeIn third" placeholder="Quantidade" formControlName="quantity">
                             <br>
-                            <input type="url" name="image" id="image" class="fadeIn third" placeholder="URL Imagem" fromControlName="image">
+                            <input type="url" name="image" id="image" class="fadeIn third" placeholder="URL Imagem" formControlName="image">
                             <br>
                             <input type="submit" class="button__submitproduct" value="Adicionar!" (click)="onSubmit()">
                         </div>

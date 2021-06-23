@@ -48,9 +48,10 @@ export class NewProductComponent implements OnInit {
       description: ['', [Validators.required]],
       category: ['', [Validators.required]],
       brand: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      quantity: ['', [Validators.required] ],
-      image: ['', [Validators.required]],
+      quantity: ['', [Validators.required,Validators.pattern(/\d/), Validators.min(0)]],
+      price: ['', [Validators.required,Validators.pattern(/\d/), Validators.min(0)]],
+      image: []
+
     })
 
   }

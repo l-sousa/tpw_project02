@@ -46,11 +46,22 @@ class BrandSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True, many=True)
-    brand = BrandSerializer(read_only=True)
     class Meta:
         model = Product
         fields = ('id', 'name', 'description', 'category', 'brand', 'price', 'quantity', 'image')
+
+    def to_representation(self, instance):
+        self.fields['brand'] =  BrandSerializer(read_only=True)
+        self.fields['category'] =  CategorySerializer(read_only=True, many=True)
+        return super(ProductSerializer, self).to_representation(instance)    
+    
+    def create(self, validated_data):
+        category_data = validated_data.pop('category')
+        product = Product.objects.create(**validated_data)
+        for category_data in category_data:
+            cat = Category.objects.get(id=category_data.id)
+            product.category.add(cat) 
+        return product
 
 
 class OrderSerializer(serializers.ModelSerializer):

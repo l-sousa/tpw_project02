@@ -41,12 +41,10 @@ export class NewProductComponent implements OnInit {
     public fb: FormBuilder,
   ) 
   {
-    /* Makes it only available if the user is logged in
     if (!checkAuthUserService.check()) {
       this.location.replaceState('/'); // clears browser history so they can't navigate with back button
       this.router.navigate(['']);
     }
-    */
     this.newProductForm = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],

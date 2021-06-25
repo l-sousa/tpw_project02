@@ -40,6 +40,7 @@ import { BrandProductsListComponent } from './brand-products-list/brand-products
 import { CategoriesComponent } from './categories/categories.component';
 import { CarouselDirective2 } from './categories/carousel.directive';
 import { CategoryProductsListComponent } from './category-products-list/category-products-list.component';
+import { NewProductComponent } from './new-product/new-product.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { CategoryProductsListComponent } from './category-products-list/category
     BrandProductsListComponent, 
     CategoriesComponent,
     CarouselDirective2,
-    CategoryProductsListComponent
+    CategoryProductsListComponent,
+    NewProductComponent
   ],
   imports: [
     AppRoutingModule,

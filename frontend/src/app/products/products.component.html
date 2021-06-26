@@ -20,7 +20,7 @@
             <mat-card-content routerLink="/product/{{product.id}}">
               <mat-card-title>{{ product.name }}</mat-card-title>
               <mat-card-subtitle *ngFor="let category of product.category ">{{ product.brand.name }} - {{ category.name
-                }} <br> € {{ product.price }}
+                }} <br> {{ product.price | currency:"EUR" }}
               </mat-card-subtitle>
             </mat-card-content>
             <mat-card-actions>

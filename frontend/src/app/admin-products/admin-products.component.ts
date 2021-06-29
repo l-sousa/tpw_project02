@@ -1,11 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'; 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+// CHILD - DIALOG
+import { MatDialog  } from '@angular/material/dialog';
 import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
-import { Product } from '../models/Product';
+// SERVICES
 import { ProductService } from '../services/product/product.service';
+import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
+// MODEL
+import { Product } from '../models/Product';
 
 @Component({
   selector: 'app-admin-products',
@@ -16,23 +20,33 @@ export class AdminProductsComponent implements OnInit {
 
   success: boolean = false; 
   products: Product[] = [];
-  product? 
+  @Input() 
+  product_to_ediit: Product;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private productService: ProductService,
+    private checkAuthUserService: CheckAuthUserService,
     private dialog: MatDialog
   ) 
-  { }
+  {
+    /*
+    if (!checkAuthUserService.check()) {
+      this.location.replaceState('/'); // clears browser history so they can't navigate with back button
+      this.router.navigate(['']);
+    }
+    */
+  }
 
   ngOnInit(): void {
     this.getProducts();
   }
 
-  openDialog(): void {
+  openDialog(product: Product): void {
+    this.product_to_ediit = product;
     const dialogRef = this.dialog.open(DialogBodyComponent, {
-      data: {product: this.product}
+      data: {product: this.product_to_ediit}
     });
 
     dialogRef.afterClosed().subscribe(result => {

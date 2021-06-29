@@ -23,7 +23,11 @@ export class ProductService {
 
   createProduct(data: {}): Observable<any> {
     const url = environment.API_BASE_URL + 'productcre';
-
     return this.http.post(url, data)
+  }
+
+  editProduct(data: {}): Observable<any> {
+    const url = environment.API_BASE_URL + 'productupd';
+    return this.http.put(url, data)
   }
 }

@@ -1,17 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
-import  { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse } from "@angular/common/http";
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common'; 
 
+// SERVICES
 import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
 import { Emitters } from '../emitters/emitters';
 import { CategoryService } from '../services/category/category.service';
 import { BrandService } from '../services/brand/brand.service';
 import { ProductService } from '../services/product/product.service';
+// MODEL
 import { Category } from '../models/Category';
 import { Brand } from '../models/Brand';
+import { Product } from '../models/Product';
 
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
@@ -29,6 +32,7 @@ export class NewProductComponent implements OnInit {
   categories: Category[];
   brands: Brand[];
   newProductForm: FormGroup;
+  @Input() newproduct: Product = new Product();
 
   constructor(
     private route: ActivatedRoute,
@@ -41,10 +45,12 @@ export class NewProductComponent implements OnInit {
     public fb: FormBuilder,
   ) 
   {
+    /*
     if (!checkAuthUserService.check()) {
       this.location.replaceState('/'); // clears browser history so they can't navigate with back button
       this.router.navigate(['']);
     }
+    */
     this.newProductForm = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -58,21 +64,16 @@ export class NewProductComponent implements OnInit {
 
   }
   
-
   ngOnInit(): void {
-    this.checkAuthUserService.check()
-    this.categoryService.getCategories().subscribe(res => (this.categories = res));
-    this.brandService.getBrands().subscribe(res => (this.brands = res));
+    this.checkAuthUserService.check();
+    this.getCategories();
+    this.getBrands();
 
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
       }
     );
-  }
-
-  goBack(): void {
-		this.location.back();
   }
 
   onSubmit(): void {
@@ -95,6 +96,19 @@ export class NewProductComponent implements OnInit {
           this.error = true;
         });
     
+  }
+
+  goBack(): void {
+		this.location.back();
+  }
+
+
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe(res => (this.categories = res));
+  }
+
+  getBrands(): void {
+    this.brandService.getBrands().subscribe(res => (this.brands = res));
   }
 
 }

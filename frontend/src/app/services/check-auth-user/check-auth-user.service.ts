@@ -27,19 +27,21 @@ export class CheckAuthUserService {
   // @ts-ignore
   check(): Observable<any> {
     const url = environment.API_BASE_URL + 'user';
-    this.http.get(url, {
-      withCredentials: true, headers: new HttpHeaders({
-        'jwt': ((this.getCookie('jwt')) ? this.getCookie('jwt').toString() : this.getCookie('jwt')),
-      }),
-    }).subscribe(
-      (res: any) => {
-        Emitters.authEmitter.emit(true);
-        Emitters.userEmitter.emit(res["username"]);
-      },
-      err => {
-        Emitters.authEmitter.emit(false);
-      }
-    );
-  }
 
+    if (this.getCookie('jwt')) {
+      this.http.get(url, {
+        withCredentials: true,
+        headers: new HttpHeaders({'jwt': ((this.getCookie('jwt')) ? this.getCookie('jwt').toString() : this.getCookie('jwt'))}),
+      }).subscribe(
+        res => {
+          Emitters.authEmitter.emit(true);
+          Emitters.userEmitter.emit(res["username"]);
+        }
+      );
+    } else {
+      Emitters.authEmitter.emit(false);
+    }
+  }
 }
+
+

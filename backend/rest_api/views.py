@@ -395,8 +395,10 @@ class LoginView(APIView):
         response = Response()
 
         response.set_cookie(key='jwt', value=token, httponly=True)
+
         response.data = {
-            'jwt': token
+            'jwt': token,
+            # 'user_type': user_type
         }
 
         return response
@@ -430,16 +432,30 @@ class UserView(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
+
 @api_view(['GET'])
 def search_products(request):
     query = request.GET.get('query', '')
     if query:
-        prods_by_brand = Product.objects.filter(brand__name__contains=query)
-        prods_by_category = Product.objects.filter(category__name__contains=query)
-        prods_by_name = Product.objects.filter(name__contains=query)
+        prods_by_brand = Product.objects.filter(brand__name__icontains=query)
+        prods_by_category = Product.objects.filter(category__name__icontains=query)
+        prods_by_name = Product.objects.filter(name__icontains=query)
         all_products = set(chain(prods_by_brand, prods_by_category, prods_by_name))
         serializer = ProductSerializer(all_products, many=True)
     else:
         serializer = ProductSerializer(Product.objects.all(), many=True)
-        print("seru")
+    print(serializer.data)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_user_type(request):
+    username = request.GET.get('username', '')
+    user_type = None
+    if username:
+        if Customer.objects.filter(user__username=username).exists():
+            user_type = "customer"
+        if Manager.objects.filter(user__username=username).exists():
+            user_type = "manager"
+
+    return Response({'user_type': user_type})

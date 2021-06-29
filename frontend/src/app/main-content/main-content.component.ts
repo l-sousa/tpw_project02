@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {LogoutService} from '../services/logout/logout.service';
 import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.service';
 import {MatSidenav} from '@angular/material/sidenav';
+import {GetUserTypeService} from '../services/get-user-type/get-user-type.service';
 
 @Component({
   selector: 'app-main-content',
@@ -26,22 +27,47 @@ export class MainContentComponent {
 
   authenticated: boolean | undefined;
   error: boolean | undefined;
+  username: string;
+  is_customer: boolean;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private http: HttpClient,
     private logoutService: LogoutService,
     private checkAuthUserService: CheckAuthUserService,
+    private getUserTypeService: GetUserTypeService,
     private router: Router) {
   }
 
   ngOnInit(): void {
 
+    this.subscribeToEmitters();
     this.checkAuthUserService.check()
 
+  }
+
+  subscribeToEmitters() {
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
+      }
+    );
+
+    Emitters.userEmitter.subscribe(
+      (username: string) => {
+        this.username = username;
+        this.getUserTypeService.getUserType(this.username).subscribe(
+          user_type => {
+            user_type = user_type['user_type'];
+            if (user_type == "customer") {
+              this.is_customer = true;
+            } else if (user_type == "manager") {
+              this.is_customer = false;
+            } else {
+              this.authenticated = false;
+            }
+          }
+        );
       }
     );
   }
@@ -61,6 +87,7 @@ export class MainContentComponent {
   logout(): void {
     this.logoutService.logout()
       .subscribe((res: any) => {
+          Emitters.authEmitter.emit(false);
           this.deleteCookie('jwt');
           this.authenticated = false
           localStorage.clear();

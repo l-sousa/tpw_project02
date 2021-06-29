@@ -6,13 +6,14 @@ import {environment} from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class LogoutService {
+export class GetUserTypeService {
 
   constructor(private http: HttpClient) {
   }
 
-  logout(): Observable<any> {
-    const url = environment.API_BASE_URL + 'logout';
-    return this.http.post(url, environment.HTTP_OPTIONS);
+  getUserType(username: string): Observable<any> {
+    const url = environment.API_BASE_URL + 'user/type?username=' + username;
+    return this.http.get<string>(url);
   }
+
 }

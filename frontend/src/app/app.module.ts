@@ -60,7 +60,7 @@ import { DialogBodyComponent } from './dialog-body/dialog-body.component';
     CheckoutComponent, 
     BrandsComponent,
     CarouselDirective,
-    BrandProductsListComponent, 
+    BrandProductsListComponent,
     CategoriesComponent,
     CarouselDirective2,
     CategoryProductsListComponent,

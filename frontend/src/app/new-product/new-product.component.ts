@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from "@angular/common/http";
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common'; 
+import { Location } from '@angular/common';
 
 // SERVICES
 import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
@@ -43,14 +43,8 @@ export class NewProductComponent implements OnInit {
     private brandService: BrandService,
     private productService: ProductService,
     public fb: FormBuilder,
-  ) 
+  )
   {
-    /*
-    if (!checkAuthUserService.check()) {
-      this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-      this.router.navigate(['']);
-    }
-    */
     this.newProductForm = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -63,17 +57,18 @@ export class NewProductComponent implements OnInit {
     })
 
   }
+
   
   ngOnInit(): void {
-    this.checkAuthUserService.check();
-    this.getCategories();
-    this.getBrands();
-
+    
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
       }
     );
+    this.checkAuthUserService.check();
+    this.getCategories();
+    this.getBrands();
   }
 
   onSubmit(): void {
@@ -95,7 +90,7 @@ export class NewProductComponent implements OnInit {
         (err: HttpErrorResponse) => {
           this.error = true;
         });
-    
+
   }
 
   goBack(): void {

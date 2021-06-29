@@ -53,6 +53,7 @@ urlpatterns = [
     path('ws/login', LoginView.as_view()),
     path('ws/logout', LogoutView.as_view()),
     path('ws/user', UserView.as_view()),
+    path('ws/user/type', views.get_user_type),
 
     path('ws/search-products', views.search_products),
 

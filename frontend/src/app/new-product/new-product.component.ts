@@ -3,7 +3,7 @@ import  { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common'; 
+import { Location } from '@angular/common';
 
 import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
 import { Emitters } from '../emitters/emitters';
@@ -39,9 +39,9 @@ export class NewProductComponent implements OnInit {
     private brandService: BrandService,
     private productService: ProductService,
     public fb: FormBuilder,
-  ) 
+  )
   {
-    if (!checkAuthUserService.check()) {
+    if (!this.authenticated) {
       this.location.replaceState('/'); // clears browser history so they can't navigate with back button
       this.router.navigate(['']);
     }
@@ -57,18 +57,19 @@ export class NewProductComponent implements OnInit {
     })
 
   }
-  
+
 
   ngOnInit(): void {
-    this.checkAuthUserService.check()
-    this.categoryService.getCategories().subscribe(res => (this.categories = res));
-    this.brandService.getBrands().subscribe(res => (this.brands = res));
 
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
       }
     );
+
+    this.checkAuthUserService.check()
+    this.categoryService.getCategories().subscribe(res => (this.categories = res));
+    this.brandService.getBrands().subscribe(res => (this.brands = res));
   }
 
   goBack(): void {
@@ -94,7 +95,7 @@ export class NewProductComponent implements OnInit {
         (err: HttpErrorResponse) => {
           this.error = true;
         });
-    
+
   }
 
 }

@@ -9,7 +9,10 @@ import { BrandProductsListComponent } from './brand-products-list/brand-products
 import { CategoryProductsListComponent } from './category-products-list/category-products-list.component';
 
 import { CheckoutComponent } from './checkout/checkout.component';
+
+// ADMIN
 import { NewProductComponent } from './new-product/new-product.component';
+import { AdminProductsComponent } from './admin-products/admin-products.component';
 
 const routes: Routes = [
   {path: '', component: MainContentComponent, pathMatch: "full"},
@@ -19,7 +22,9 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'brand/:id/products', component: BrandProductsListComponent }, 
   { path: 'category/:id/products', component: CategoryProductsListComponent }, 
+  // ADMIN
   { path: 'admin/addproduct', component: NewProductComponent }, 
+  { path: 'admin/stock', component: AdminProductsComponent }, 
 ];
 
 @NgModule({

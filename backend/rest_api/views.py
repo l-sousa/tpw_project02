@@ -37,11 +37,12 @@ def get_product(request):
 
 @api_view(['GET'])
 def get_products(request):
+    import time
+
     products = Product.objects.all()
-    if 'num' in request.GET:
-        num = int(request.GET['num'])
-        products = products[:num]
+
     serializer = ProductSerializer(products, many=True)
+
     return Response(serializer.data)
 
 
@@ -312,7 +313,6 @@ def create_order(request):
         item = i['item']
         item_quantity = i['item_quantity']
 
-        print(item_quantity)
         product = Product.objects.filter(id=item['id']).first()
         order_item = OrderItem(product=product, quantity=item_quantity)
         order_item.save()
@@ -324,7 +324,6 @@ def create_order(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -357,7 +356,6 @@ def del_order(request, id):
 @permission_classes([AllowAny])
 def signup(request):
     req_data = request.data
-    print(req_data)
     user = User.objects.create(username=req_data['username'], password=req_data['password'], is_customer=True)
     req_data['user'] = user.pk
 
@@ -452,7 +450,6 @@ def search_products(request):
         serializer = ProductSerializer(all_products, many=True)
     else:
         serializer = ProductSerializer(Product.objects.all(), many=True)
-    print(serializer.data)
     return Response(serializer.data)
 
 

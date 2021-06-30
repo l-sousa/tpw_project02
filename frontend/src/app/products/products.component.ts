@@ -31,9 +31,7 @@ export class ProductsComponent implements OnInit {
 
   addToShoppingCart(product: Product) {
     var key = "cart_item/" + product.id;
-    console.log();
     Emitters.newCartItemEmitter.emit(JSON.stringify(product));
-
   }
 
 }

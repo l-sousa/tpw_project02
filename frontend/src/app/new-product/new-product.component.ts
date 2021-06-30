@@ -1,17 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
-import  { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 
-import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
-import { Emitters } from '../emitters/emitters';
-import { CategoryService } from '../services/category/category.service';
-import { BrandService } from '../services/brand/brand.service';
-import { ProductService } from '../services/product/product.service';
-import { Category } from '../models/Category';
-import { Brand } from '../models/Brand';
+import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.service';
+import {Emitters} from '../emitters/emitters';
+import {CategoryService} from '../services/category/category.service';
+import {BrandService} from '../services/brand/brand.service';
+import {ProductService} from '../services/product/product.service';
+import {Category} from '../models/Category';
+import {Brand} from '../models/Brand';
 
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
@@ -39,8 +39,7 @@ export class NewProductComponent implements OnInit {
     private brandService: BrandService,
     private productService: ProductService,
     public fb: FormBuilder,
-  )
-  {
+  ) {
     if (!this.authenticated) {
       this.location.replaceState('/'); // clears browser history so they can't navigate with back button
       this.router.navigate(['']);
@@ -50,9 +49,9 @@ export class NewProductComponent implements OnInit {
       description: ['', [Validators.required]],
       category: ['', [Validators.required]],
       brand: ['', [Validators.required]],
-      quantity: ['', [Validators.required,Validators.pattern(/\d/), Validators.min(0)]],
+      quantity: ['', [Validators.required, Validators.pattern(/\d/), Validators.min(0)]],
       price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(0)]],
-      image: ['', [ Validators.required, Validators.pattern(urlRegex)]]
+      image: ['', [Validators.required, Validators.pattern(urlRegex)]]
 
     })
 
@@ -73,7 +72,7 @@ export class NewProductComponent implements OnInit {
   }
 
   goBack(): void {
-		this.location.back();
+    this.location.back();
   }
 
   onSubmit(): void {

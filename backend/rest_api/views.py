@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 from itertools import chain
+import pprint as pp
 
 # Create your views here.
 
@@ -298,7 +299,6 @@ def get_userorders(request):
 # web service to create a order
 @api_view(['POST'])
 def create_order(request):
-    print(request.data)
 
     user = User.objects.get(username=request.data['username'])
     customer = Customer.objects.get(user=user).pk
@@ -306,17 +306,25 @@ def create_order(request):
     if customer is None:
         raise NotAuthenticated('User not valid!');
 
-    products = []
-    for prod in request.data['products']:
-        product = Product.objects.filter(id=prod['id']).first()
-        products.append(product.pk)
+    order_items = []
 
-    order_data = {'customer': customer, 'products': products}
+    for i in request.data['products']:
+        item = i['item']
+        item_quantity = i['item_quantity']
+
+        print(item_quantity)
+        product = Product.objects.filter(id=item['id']).first()
+        order_item = OrderItem(product=product, quantity=item_quantity)
+        order_item.save()
+        order_items.append(order_item.pk)
+
+    order_data = {'customer': customer, 'order_items': order_items}
 
     serializer = OrderSerializer(data=order_data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    print(serializer.errors)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

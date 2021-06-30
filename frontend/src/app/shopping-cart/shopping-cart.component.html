@@ -2,10 +2,12 @@
 
 <mat-nav-list>
   <div class="row" style="display: flex; justify-content: space-around; height: 5em;" *ngFor="let item of items">
-    <div class="col" style="display: flex;align-items: center;"><a style="word-break: break-word;" mat-list-item>{{item.name}}</a>
+    <div class="col-6" style="display: flex;align-items: center;"><a style="word-break: break-word;" mat-list-item>{{item.item.name}}</a>
+    </div>
+    <div class="col" style="display: flex;align-items: center;"><a style="word-break: break-word;" (click)="increaseCount(item)" mat-list-item>x{{item.item_quantity}}</a>
     </div>
     <div class="col-3">
-      <a style="height: 100%" mat-list-item (click)="removeProduct(item.id)">
+      <a style="height: 100%" mat-list-item (click)="removeProduct(item.item.id)">
         <mat-icon color="accent">delete</mat-icon>
       </a>
     </div>

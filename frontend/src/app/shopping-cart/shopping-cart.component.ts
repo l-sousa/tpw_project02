@@ -1,8 +1,8 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import { timer } from 'rxjs';
-import { take } from 'rxjs/operators';
+import {timer} from 'rxjs';
+import {take} from 'rxjs/operators';
 import {Emitters} from '../emitters/emitters';
 import {Order} from '../models/Order';
 import {Product} from '../models/Product';
@@ -60,18 +60,20 @@ export class ShoppingCartComponent implements OnInit {
     var item_obj = JSON.parse(item);
     var key = "cart_item/" + item_obj["id"];
 
-    localStorage.setItem(key, item);
+    if (localStorage.getItem(key) === null) { // aka it doesnt already exist
+      localStorage.setItem(key, JSON.stringify({'item': item_obj, 'item_quantity': 1}));
+      var value = JSON.parse(localStorage.getItem(key));
+      this.items.push(value);
+      this.total += Number(item_obj["price"]);
+    } else {
+      var existing_item = JSON.parse(localStorage.getItem(key))['item'];
+      var existing_quantity = JSON.parse(localStorage.getItem(key))['item_quantity'];
+      localStorage.setItem(key, JSON.stringify({'item': existing_item, 'item_quantity': existing_quantity + 1}));
+      this.items = this.findLocalItems("cart_item/");
+      this.total += Number(existing_item["price"]);
 
-    var value = JSON.parse(localStorage.getItem(key));
-    this.items.push(value);
-    this.total += Number(item_obj["price"]);
+    }
 
-  }
-
-  addToShoppingCart(product: Product) {
-    var key = "cart_item/" + product.id;
-    localStorage.setItem(key, JSON.stringify(product))
-    Emitters.newCartItemEmitter.emit(localStorage.getItem(key));
   }
 
   findLocalItems(query) {
@@ -91,10 +93,22 @@ export class ShoppingCartComponent implements OnInit {
 
   removeProduct(product_id: number) {
     for (var _i = 0; _i < this.items.length; _i++) {
-      if (this.items[_i]["id"] == product_id) {
-        localStorage.removeItem("cart_item/" + product_id);
-        this.total -= Number(this.items[_i]["price"]);
-        this.items = this.findLocalItems("cart_item/");
+      if (this.items[_i]['item']["id"] == product_id) {
+        var key = "cart_item/" + product_id;
+        var item = JSON.parse(localStorage.getItem(key));
+        var item_qnt = item['item_quantity'];
+
+
+        if (item_qnt > 1) {
+          item_qnt--;
+          this.total -= Number(item['item']["price"]);
+          localStorage.setItem(key, JSON.stringify({'item': item['item'], 'item_quantity': item_qnt}));
+          this.items = this.findLocalItems("cart_item/");
+        } else {
+          localStorage.removeItem(key);
+          this.total -= Number(this.items[_i]['item']["price"]);
+          this.items = this.findLocalItems("cart_item/");
+        }
       }
     }
   }
@@ -109,7 +123,7 @@ export class ShoppingCartComponent implements OnInit {
           this.checkoutConfirmation = false;
         },
         (err: HttpErrorResponse) => {
-          console.log("Error checking out");
+          alert("Error checking out");
         });
   }
 
@@ -126,8 +140,13 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   offConfirmationCheckout() {
-    console.log("was true");
     this.checkoutConfirmation = false;
-    console.log(this.checkoutConfirmation);
+  }
+
+  increaseCount(item: any) {
+    var key = "cart_item/" + item['item']['id'];
+    var new_quantity = item['item_quantity'] + 1
+    localStorage.setItem(key, JSON.stringify({'item': item['item'], 'item_quantity': new_quantity}));
+    this.items = this.findLocalItems("cart_item/");
   }
 }

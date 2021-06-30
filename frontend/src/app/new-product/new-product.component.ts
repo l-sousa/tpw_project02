@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpErrorResponse } from "@angular/common/http";
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+
+import {ActivatedRoute, Router} from '@angular/router';
+import {Location} from '@angular/common';
 
 // SERVICES
 import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
@@ -15,6 +16,7 @@ import { ProductService } from '../services/product/product.service';
 import { Category } from '../models/Category';
 import { Brand } from '../models/Brand';
 import { Product } from '../models/Product';
+
 
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
@@ -43,16 +45,21 @@ export class NewProductComponent implements OnInit {
     private brandService: BrandService,
     private productService: ProductService,
     public fb: FormBuilder,
-  )
-  {
+
+  ) {
+    if (!this.authenticated) {
+      this.location.replaceState('/'); // clears browser history so they can't navigate with back button
+      this.router.navigate(['']);
+    }
+
     this.newProductForm = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       category: ['', [Validators.required]],
       brand: ['', [Validators.required]],
-      quantity: ['', [Validators.required,Validators.pattern(/\d/), Validators.min(0)]],
+      quantity: ['', [Validators.required, Validators.pattern(/\d/), Validators.min(0)]],
       price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(0)]],
-      image: ['', [ Validators.required, Validators.pattern(urlRegex)]]
+      image: ['', [Validators.required, Validators.pattern(urlRegex)]]
 
     })
 
@@ -66,9 +73,20 @@ export class NewProductComponent implements OnInit {
         this.authenticated = auth;
       }
     );
+
+
+    this.checkAuthUserService.check()
+    this.categoryService.getCategories().subscribe(res => (this.categories = res));
+    this.brandService.getBrands().subscribe(res => (this.brands = res));
+
+
+  goBack(): void {
+    this.location.back();
+
     this.checkAuthUserService.check();
     this.getCategories();
     this.getBrands();
+
   }
 
   onSubmit(): void {

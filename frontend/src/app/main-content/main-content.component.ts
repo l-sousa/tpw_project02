@@ -25,7 +25,7 @@ export class MainContentComponent {
       shareReplay()
     );
 
-  authenticated: boolean | undefined;
+  authenticated: boolean;
   error: boolean | undefined;
   username: string;
   is_customer: boolean;
@@ -37,10 +37,11 @@ export class MainContentComponent {
     private checkAuthUserService: CheckAuthUserService,
     private getUserTypeService: GetUserTypeService,
     private router: Router) {
+    this.authenticated = false;
+    this.is_customer = true;
   }
 
   ngOnInit(): void {
-
     this.subscribeToEmitters();
     this.checkAuthUserService.check()
 
@@ -66,6 +67,7 @@ export class MainContentComponent {
             } else {
               this.authenticated = false;
             }
+
           }
         );
       }
@@ -74,7 +76,6 @@ export class MainContentComponent {
 
 
   deleteCookie(name: string) {
-    console.log("deleting cookies");
     const date = new Date();
 
     // Set it expire in -1 days
@@ -91,10 +92,10 @@ export class MainContentComponent {
           this.deleteCookie('jwt');
           this.authenticated = false
           localStorage.clear();
-          this.router.navigate(['']);
+          this.router.navigate(['/login']);
         },
         (err: HttpErrorResponse) => {
-          this.error = true;
+          alert("error logging out");
         });
   }
 

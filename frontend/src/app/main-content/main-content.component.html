@@ -11,7 +11,7 @@
   }
 </style>
 
-<mat-sidenav-container class="sidenav-container" >
+<mat-sidenav-container class="sidenav-container">
 
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
@@ -45,12 +45,14 @@
       <a style="margin-right: 1%" routerLink="/login" *ngIf="!authenticated">| Login |</a>
       <a style="margin-right: 1%" routerLink="/signup" *ngIf="!authenticated">Signup |</a>
       <a style="margin-right: 1%" routerLink="/admin/stock" *ngIf="authenticated && !is_customer">Verificar Stock |</a>
-      <a style="margin-right: 1%" routerLink="/admin/addproduct" *ngIf="authenticated && !is_customer">Adicionar Novo Produto |</a>
+      <a style="margin-right: 1%" routerLink="/orders" *ngIf="authenticated && is_customer">Histórico Encomendas |</a>
+      <a style="margin-right: 1%" routerLink="/admin/addproduct" *ngIf="authenticated && !is_customer">Adicionar Novo
+        Produto |</a>
       <a style="margin-right: 1%" *ngIf="authenticated" (click)="logout()">Logout |</a>
 
     </mat-toolbar>
     <!-- Add Content Here -->
-      <app-products></app-products>
+    <app-products></app-products>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

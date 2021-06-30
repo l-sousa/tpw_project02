@@ -31,7 +31,6 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
     this.items = this.findLocalItems("cart_item/");
     this.subscribeToEmitters();
-    this.calcTotalPrice();
 
   }
 
@@ -48,29 +47,18 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
 
-
-  calcTotalPrice() {
-    this.total = 0;
-    for (var _i = 0; _i < this.items.length; _i++) {
-      this.total += Number(this.items[_i]["price"])
-    }
-  }
-
   handleNewItem(item: string) {
     var item_obj = JSON.parse(item);
     var key = "cart_item/" + item_obj["id"];
 
     if (localStorage.getItem(key) === null) { // aka it doesnt already exist
       localStorage.setItem(key, JSON.stringify({'item': item_obj, 'item_quantity': 1}));
-      var value = JSON.parse(localStorage.getItem(key));
-      this.items.push(value);
-      this.total += Number(item_obj["price"]);
+      this.items = this.findLocalItems("cart_item/");
     } else {
       var existing_item = JSON.parse(localStorage.getItem(key))['item'];
       var existing_quantity = JSON.parse(localStorage.getItem(key))['item_quantity'];
       localStorage.setItem(key, JSON.stringify({'item': existing_item, 'item_quantity': existing_quantity + 1}));
       this.items = this.findLocalItems("cart_item/");
-      this.total += Number(existing_item["price"]);
 
     }
 
@@ -79,10 +67,13 @@ export class ShoppingCartComponent implements OnInit {
   findLocalItems(query) {
     var i, results = [];
     var count = 0;
+    this.total = 0;
     for (i in localStorage) {
       if (localStorage.hasOwnProperty(i)) {
         if (i.match(query) || (!query && typeof i === 'string')) {
           var item_obj = JSON.parse(localStorage.getItem(i));
+          console.log(JSON.stringify(item_obj))
+          this.total += Number(item_obj['item']['price']) * Number(item_obj['item_quantity']);
           results.push(item_obj);
           count++;
         }

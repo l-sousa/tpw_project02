@@ -19,8 +19,17 @@ export class ProductsComponent implements OnInit {
   constructor(private productService: ProductService, private searchService: SearchService) {
   }
 
+
   ngOnInit(): void {
-    this.productService.getProducts().subscribe(products => this.products = products);
+    console.log("oi")
+
+    this.productService.getProducts().subscribe(
+      products => {
+        this.products = products;
+
+      }
+    );
+
 
     Emitters.searchEmitter.subscribe(
       (query: string) => {

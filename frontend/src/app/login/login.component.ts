@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpErrorResponse} from "@angular/common/http";
 import {LoginService} from '../services/login/login.service';
 import {Router} from '@angular/router';
 
@@ -12,10 +12,9 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-
   loginForm: FormGroup;
-  submitted = false;
-  error = false;
+  submitted: boolean = false;
+  error: boolean = false;
 
   constructor(
     private service: LoginService,

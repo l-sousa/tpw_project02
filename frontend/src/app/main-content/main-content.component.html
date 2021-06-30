@@ -47,6 +47,19 @@
       <a style="margin-right: 1%" routerLink="/admin/stock" *ngIf="authenticated && !is_customer">Verificar Stock |</a>
       <a style="margin-right: 1%" routerLink="/admin/addproduct" *ngIf="authenticated && !is_customer">Adicionar Novo Produto |</a>
       <a style="margin-right: 1%" *ngIf="authenticated" (click)="logout()">Logout |</a>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User additional information">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="accountDetailsDialog()">
+          <mat-icon>how_to_reg</mat-icon>
+          <span>Detalhes da Conta</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>store_mall_directory</mat-icon>
+          <span>Histórico de Encomendas</span>
+        </button>
+      </mat-menu>
 
     </mat-toolbar>
     <!-- Add Content Here -->

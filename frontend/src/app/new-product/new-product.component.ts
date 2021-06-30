@@ -47,10 +47,10 @@ export class NewProductComponent implements OnInit {
     public fb: FormBuilder,
 
   ) {
-    if (!this.authenticated) {
+    /* if (!this.authenticated) {
       this.location.replaceState('/'); // clears browser history so they can't navigate with back button
       this.router.navigate(['']);
-    }
+    } */
 
     this.newProductForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -78,15 +78,6 @@ export class NewProductComponent implements OnInit {
     this.checkAuthUserService.check()
     this.categoryService.getCategories().subscribe(res => (this.categories = res));
     this.brandService.getBrands().subscribe(res => (this.brands = res));
-
-
-  goBack(): void {
-    this.location.back();
-
-    this.checkAuthUserService.check();
-    this.getCategories();
-    this.getBrands();
-
   }
 
   onSubmit(): void {

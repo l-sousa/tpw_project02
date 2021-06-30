@@ -10,6 +10,10 @@ import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.
 import {MatSidenav} from '@angular/material/sidenav';
 import {GetUserTypeService} from '../services/get-user-type/get-user-type.service';
 
+// CHILD - DIALOG
+import { MatDialog  } from '@angular/material/dialog';
+import { DialogBodyAccountComponent } from '../dialog-body-account/dialog-body-account.component';
+
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
@@ -36,8 +40,10 @@ export class MainContentComponent {
     private logoutService: LogoutService,
     private checkAuthUserService: CheckAuthUserService,
     private getUserTypeService: GetUserTypeService,
-    private router: Router) {
-  }
+    private router: Router,
+    private dialog: MatDialog
+  ) 
+  { }
 
   ngOnInit(): void {
 
@@ -100,5 +106,12 @@ export class MainContentComponent {
 
   closeSidenav() {
     this.sidenav.close();
+  }
+
+  accountDetailsDialog(): void {
+    const dialogRef = this.dialog.open(DialogBodyAccountComponent, {
+      data: {client: "any"}
+    });
+
   }
 }

@@ -32,7 +32,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product-details-box__details">
                     <h3>{{ product.name }}</h3>
-                    <div>€ {{ product.price }}</div>
+                    <div>{{ product.price | currency:"EUR" }}</div>
                     <p>{{ product.description }}</p>
                     <button mat-raised-button color="primary">ADICIONAR AO CARRINHO</button>
                     <ul>

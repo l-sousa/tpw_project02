@@ -24,7 +24,7 @@ DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:4200',
+    'http://localhost:4200'
 ]
 
 CORS_ALLOW_HEADERS = [
@@ -96,12 +96,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tpw',
-        'USER': 'tpw',
-        'PASSWORD': 'mercadinhocliques',
-        'HOST': '161.230.191.221',
-        'PORT': 3306,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

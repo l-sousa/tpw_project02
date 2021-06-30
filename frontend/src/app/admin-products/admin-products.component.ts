@@ -6,8 +6,9 @@ import { Location } from '@angular/common';
 import { MatDialog  } from '@angular/material/dialog';
 import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
 // SERVICES
-import { ProductService } from '../services/product/product.service';
 import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
+import { Emitters } from '../emitters/emitters';
+import { ProductService } from '../services/product/product.service';
 // MODEL
 import { Product } from '../models/Product';
 
@@ -18,6 +19,7 @@ import { Product } from '../models/Product';
 })
 export class AdminProductsComponent implements OnInit {
 
+  authenticated: boolean | undefined;
   success: boolean = false; 
   products: Product[] = [];
   @Input() 
@@ -40,6 +42,12 @@ export class AdminProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    Emitters.authEmitter.subscribe(
+      (auth: boolean) => {
+        this.authenticated = auth;
+      }
+    );
+    this.checkAuthUserService.check();
     this.getProducts();
   }
 

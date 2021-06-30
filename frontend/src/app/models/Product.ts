@@ -11,6 +11,7 @@ export class Product {
   quantity: number;
   image: HTMLImageElement;
 
+  /*
   constructor(id: number, name: string, description: string, category: Category[], brand: Brand, price: number, quantity: number, image: HTMLImageElement) {
     this.id = id;
     this.name = name;
@@ -21,5 +22,5 @@ export class Product {
     this.quantity = quantity;
     this.image = image;
   }
-
+  */
 }

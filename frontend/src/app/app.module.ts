@@ -41,6 +41,9 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CarouselDirective2 } from './categories/carousel.directive';
 import { CategoryProductsListComponent } from './category-products-list/category-products-list.component';
 import { NewProductComponent } from './new-product/new-product.component';
+import { AdminProductsComponent } from './admin-products/admin-products.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogBodyComponent } from './dialog-body/dialog-body.component';
 
 @NgModule({
   declarations: [
@@ -54,14 +57,16 @@ import { NewProductComponent } from './new-product/new-product.component';
     ShoppingCartComponent,
     CheckoutComponent,
     SearchBarComponent,
-    CheckoutComponent,
+    CheckoutComponent, 
     BrandsComponent,
     CarouselDirective,
     BrandProductsListComponent,
     CategoriesComponent,
     CarouselDirective2,
     CategoryProductsListComponent,
-    NewProductComponent
+    NewProductComponent,
+    AdminProductsComponent,
+    DialogBodyComponent
   ],
   imports: [
     AppRoutingModule,
@@ -84,7 +89,8 @@ import { NewProductComponent } from './new-product/new-product.component';
     MatDividerModule,
     AppRoutingModule,
     MatTabsModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],

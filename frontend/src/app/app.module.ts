@@ -44,6 +44,7 @@ import { NewProductComponent } from './new-product/new-product.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { DialogBodyComponent } from './dialog-body/dialog-body.component';
     CategoryProductsListComponent,
     NewProductComponent,
     AdminProductsComponent,
-    DialogBodyComponent
+    DialogBodyComponent,
+    OrdersComponent
   ],
   imports: [
     AppRoutingModule,

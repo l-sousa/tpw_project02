@@ -4,9 +4,6 @@
 <form #search="ngForm" (ngSubmit)="submitSearchQuery(search.value)">
   <div class="input-group">
       <input type="search" name="search"  class="form-control" ngModel/>
-    <button type="button" class="btn btn-primary">
-      <i class="fa fa-search" (ngClick)="submitSearchQuery(search.value)"></i>
-    </button>
   </div>
 </form>
 <p>Procurar por produtos, marcas e categorias.</p>

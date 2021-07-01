@@ -31,8 +31,8 @@
       <a style="margin-right: 1%" routerLink="/signup" *ngIf="!authenticated">Signup |</a>
       <a style="margin-right: 1%" routerLink="/admin/stock" *ngIf="authenticated && !is_customer">Verificar Stock |</a>
       <a style="margin-right: 1%" routerLink="/admin/addproduct" *ngIf="authenticated && !is_customer">Adicionar Novo Produto |</a>
-      <a style="margin-right: 1%" *ngIf="authenticated" (click)="logout()" style="cursor: pointer;">Logout |</a>
-      <button *ngIf="authenticated" mat-icon-button [matMenuTriggerFor]="menu" aria-label="User additional information">
+      <a style="margin-right: 2%" *ngIf="authenticated" (click)="logout()" style="cursor: pointer;">Logout |</a>
+      <button style="margin-right: 1%" *ngIf="authenticated" mat-icon-button [matMenuTriggerFor]="menu" aria-label="User additional information">
         <mat-icon>account_circle</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
@@ -46,7 +46,7 @@
         </button>
       </mat-menu>
 
-      <button mat-icon-button [matMenuTriggerFor]="menu2" aria-label="Categorias">
+      <button style="margin-right: 5%" mat-icon-button [matMenuTriggerFor]="menu2" aria-label="Categorias">
         Categorias
         <mat-icon>storefront</mat-icon>
       </button>
@@ -59,10 +59,24 @@
         </ng-template>
       </mat-menu>
 
+      <button style="margin-right: 1%" mat-icon-button [matMenuTriggerFor]="menu3" aria-label="Marcas">
+        Marcas
+        <mat-icon>storefront</mat-icon>
+      </button>
+      <mat-menu #menu3="matMenu">
+        <ng-template let-brand ngFor [ngForOf]="brands">
+          <button mat-menu-item (click)="setBrandId(brand.id)">
+            <mat-icon>fastfood</mat-icon>
+            <span>{{ brand.name }}</span>
+          </button>
+        </ng-template>
+      </mat-menu>
+
     </mat-toolbar>
     <!-- Add Content Here -->
-      <app-products *ngIf="!category_id"></app-products>
+      <app-products *ngIf="!category_id && !brand_id"></app-products>
       <app-category-products-list *ngIf="category_id"></app-category-products-list>
+      <app-brand-products-list *ngIf="brand_id"></app-brand-products-list>
 
 
   </mat-sidenav-content>

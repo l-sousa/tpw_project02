@@ -8,5 +8,4 @@ export const environment = {
       'Content-Type': 'application/json',
     }),
   },
-  production: false
 };

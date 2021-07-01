@@ -64,7 +64,6 @@ export class NewProductComponent implements OnInit {
         this.authenticated = auth;
       }
     );
-
     this.checkAuthUserService.check();
     this.getCategories();
     this.getBrands();
@@ -84,7 +83,7 @@ export class NewProductComponent implements OnInit {
     this.productService.createProduct(this.newProductForm.value)
       .subscribe((res: any) => {
           this.success = true;
-          this.router.navigate([this.router.url]);
+          this.router.navigate(['/admin/stock']);
         },
         (err: HttpErrorResponse) => {
           this.error = true;

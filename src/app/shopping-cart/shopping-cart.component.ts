@@ -51,7 +51,7 @@ export class ShoppingCartComponent implements OnInit {
     var item_obj = JSON.parse(item);
     var key = "cart_item/" + item_obj["id"];
 
-    if (localStorage.getItem(key) === null) { // aka it doesnt already exist
+    if (localStorage.getItem(key) == null) { // aka it doesnt already exist
       localStorage.setItem(key, JSON.stringify({'item': item_obj, 'item_quantity': 1}));
       this.items = this.findLocalItems("cart_item/");
     } else {

@@ -32,6 +32,7 @@ export class MainContentComponent {
   authenticated: boolean | undefined;
   error: boolean | undefined;
   username: string;
+  user_id: number;
   is_customer: boolean;
 
   constructor(
@@ -56,6 +57,12 @@ export class MainContentComponent {
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
+      }
+    );
+
+    Emitters.userEmitterId.subscribe(
+      (id: number) => {
+        this.user_id = id;
       }
     );
 
@@ -110,7 +117,10 @@ export class MainContentComponent {
 
   accountDetailsDialog(): void {
     const dialogRef = this.dialog.open(DialogBodyAccountComponent, {
-      data: {client: "any"}
+      data: {"username": `${this.username}`, "id": `${this.user_id}`}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
 
   }

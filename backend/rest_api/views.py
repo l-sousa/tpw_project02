@@ -467,3 +467,18 @@ def get_user_type(request):
             user_type = "manager"
 
     return Response({'user_type': user_type})
+
+
+'''
+    CUSTOMER
+'''
+# web service to get a specific customer
+@api_view(['GET'])
+def get_customer(request):
+    id = int(request.GET['id'])
+    try:
+        customer = Customer.objects.get(user_id=id)
+    except Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = CustomerSerializer(customer)
+    return Response(serializer.data)

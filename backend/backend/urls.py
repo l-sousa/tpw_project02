@@ -57,4 +57,6 @@ urlpatterns = [
 
     path('ws/search-products', views.search_products),
 
+    path('ws/customer', views.get_customer),
+
 ]

@@ -69,7 +69,8 @@ import { OrdersComponent } from './orders/orders.component';
     NewProductComponent,
     AdminProductsComponent,
     DialogBodyComponent,
-    DialogBodyAccountComponent
+    DialogBodyAccountComponent,
+    OrdersComponent
   ],
   imports: [
     AppRoutingModule,

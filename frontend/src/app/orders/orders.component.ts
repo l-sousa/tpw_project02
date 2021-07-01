@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Emitters} from '../emitters/emitters';
-import {Order} from '../models/Order';
-import {OrderItem} from '../models/OrderItem';
 import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.service';
-import {GetUserTypeService} from '../services/get-user-type/get-user-type.service';
 import {OrdersService} from '../services/orders/orders.service';
 import {ProductService} from '../services/product/product.service';
 

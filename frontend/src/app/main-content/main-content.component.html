@@ -46,9 +46,24 @@
         </button>
       </mat-menu>
 
+      <button mat-icon-button [matMenuTriggerFor]="menu2" aria-label="Categorias">
+        Categorias
+        <mat-icon>storefront</mat-icon>
+      </button>
+      <mat-menu #menu2="matMenu">
+        <ng-template let-category ngFor [ngForOf]="categories">
+          <button mat-menu-item (click)="setCategoryId(category.id)">
+            <mat-icon>fastfood</mat-icon>
+            <span>{{ category.name }}</span>
+          </button>
+        </ng-template>
+      </mat-menu>
+
     </mat-toolbar>
     <!-- Add Content Here -->
-    <app-products></app-products>
+      <app-products *ngIf="!category_id"></app-products>
+      <app-category-products-list *ngIf="category_id"></app-category-products-list>
+
 
   </mat-sidenav-content>
 </mat-sidenav-container>

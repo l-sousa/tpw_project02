@@ -4,15 +4,17 @@ import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Emitters} from '../emitters/emitters';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LogoutService} from '../services/logout/logout.service';
 import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.service';
 import {MatSidenav} from '@angular/material/sidenav';
 import {GetUserTypeService} from '../services/get-user-type/get-user-type.service';
-
+import { Location } from '@angular/common'; 
 // CHILD - DIALOG
 import { MatDialog  } from '@angular/material/dialog';
 import { DialogBodyAccountComponent } from '../dialog-body-account/dialog-body-account.component';
+import { Category } from '../models/Category';
+import { CategoryService } from '../services/category/category.service';
 
 @Component({
   selector: 'app-main-content',
@@ -34,6 +36,8 @@ export class MainContentComponent {
   username: string;
   user_id: number;
   is_customer: boolean;
+  category_id: boolean = false;
+  categories: Category[];
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -41,15 +45,21 @@ export class MainContentComponent {
     private logoutService: LogoutService,
     private checkAuthUserService: CheckAuthUserService,
     private getUserTypeService: GetUserTypeService,
+    private categoryService: CategoryService,
     private router: Router,
-    private dialog: MatDialog) {
+    private route: ActivatedRoute,
+    private location: Location,
+    private dialog: MatDialog
+  ) 
+  {
     this.authenticated = false;
     this.is_customer = true;
   }
 
   ngOnInit(): void {
     this.subscribeToEmitters();
-    this.checkAuthUserService.check()
+    this.checkAuthUserService.check();
+    this.getCategories();
 
   }
 
@@ -123,5 +133,17 @@ export class MainContentComponent {
       console.log('The dialog was closed');
     });
 
+  }
+
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe(res => this.categories = res);
+  }
+
+  setCategoryId(cid: number): void {
+    this.category_id = true;
+    this.route.snapshot.paramMap['id'] = cid;
+    // this.location.replaceState('/category/'+cid+'/products');
+    // this.location.go('/category/'+cid+'/products');
+    // this.router.navigate(['/category/'+cid+'/products']);
   }
 }

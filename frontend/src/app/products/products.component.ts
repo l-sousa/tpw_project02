@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Emitters} from '../emitters/emitters';
-import {Category} from '../models/Category';
+// MODEL
 import {Product} from '../models/Product';
+// SERVICES
 import {ProductService} from '../services/product/product.service';
 import {SearchService} from '../services/search/search.service';
 
@@ -16,8 +17,11 @@ export class ProductsComponent implements OnInit {
 
   products: Product[];
 
-  constructor(private productService: ProductService, private searchService: SearchService) {
-  }
+  constructor(
+    private productService: ProductService, 
+    private searchService: SearchService
+  ) 
+  { }
 
 
   ngOnInit(): void {

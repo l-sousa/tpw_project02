@@ -3,18 +3,22 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Emitters} from '../emitters/emitters';
-import {ActivatedRoute, Router} from '@angular/router';
-import {LogoutService} from '../services/logout/logout.service';
-import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.service';
-import {MatSidenav} from '@angular/material/sidenav';
-import {GetUserTypeService} from '../services/get-user-type/get-user-type.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common'; 
+import {MatSidenav} from '@angular/material/sidenav';
+import { Emitters } from '../emitters/emitters';
+// SERVICE
+import { LogoutService } from '../services/logout/logout.service';
+import { CheckAuthUserService } from '../services/check-auth-user/check-auth-user.service';
+import { GetUserTypeService } from '../services/get-user-type/get-user-type.service';
+// MODEL
+import { Brand } from '../models/Brand';
 // CHILD - DIALOG
 import { MatDialog  } from '@angular/material/dialog';
 import { DialogBodyAccountComponent } from '../dialog-body-account/dialog-body-account.component';
 import { Category } from '../models/Category';
 import { CategoryService } from '../services/category/category.service';
+import { BrandService } from '../services/brand/brand.service';
 
 @Component({
   selector: 'app-main-content',
@@ -38,6 +42,8 @@ export class MainContentComponent {
   is_customer: boolean;
   category_id: boolean = false;
   categories: Category[];
+  brand_id: boolean = false;
+  brands: Brand[];
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -46,6 +52,7 @@ export class MainContentComponent {
     private checkAuthUserService: CheckAuthUserService,
     private getUserTypeService: GetUserTypeService,
     private categoryService: CategoryService,
+    private brandService: BrandService,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
@@ -60,7 +67,7 @@ export class MainContentComponent {
     this.subscribeToEmitters();
     this.checkAuthUserService.check();
     this.getCategories();
-
+    this.getBrands();
   }
 
   subscribeToEmitters() {
@@ -142,8 +149,15 @@ export class MainContentComponent {
   setCategoryId(cid: number): void {
     this.category_id = true;
     this.route.snapshot.paramMap['id'] = cid;
-    // this.location.replaceState('/category/'+cid+'/products');
-    // this.location.go('/category/'+cid+'/products');
-    // this.router.navigate(['/category/'+cid+'/products']);
   }
+
+  getBrands(): void {
+    this.brandService.getBrands().subscribe(res => this.brands = res);
+  }
+
+  setBrandId(bid: number): void {
+    this.brand_id = true;
+    this.route.snapshot.paramMap['id'] = bid;
+  }
+
 }

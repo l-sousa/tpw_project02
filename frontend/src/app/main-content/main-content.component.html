@@ -11,19 +11,17 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <div>
 
-      </div>
-      <button *ngIf="authenticated; else shoppingCartButtonNotAuthenticated" (click)="drawer.toggle()" mat-icon-button
+      <button *ngIf="authenticated && is_customer; else shoppingCartButtonNotAuthenticated" (click)="drawer.toggle()" mat-icon-button
               color="accent"
               aria-label="Example icon button with a menu icon">
         <mat-icon>shopping_cart</mat-icon>
       </button>
 
-      <ng-template #shoppingCartButtonNotAuthenticated>
-        <button onclick="alert('Faça login para aceder ao carrinho');" mat-icon-button
+      <ng-template #shoppingCartButtonNotAuthenticated >
+        <button onclick="alert('Faça login como cliente para aceder ao carrinho');" mat-icon-button
                 color="accent"
-                aria-label="Example icon button with a menu icon">
+                aria-label="Example icon button with a menu icon" *ngIf="authenticated && !is_customer">
           <mat-icon>shopping_cart</mat-icon>
         </button>
       </ng-template>
@@ -42,7 +40,7 @@
           <mat-icon>how_to_reg</mat-icon>
           <span>Detalhes da Conta</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="/orders">
           <mat-icon>store_mall_directory</mat-icon>
           <span>Histórico de Encomendas</span>
         </button>
@@ -50,7 +48,7 @@
 
     </mat-toolbar>
     <!-- Add Content Here -->
-      <app-products></app-products>
+    <app-products></app-products>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

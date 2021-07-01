@@ -1,15 +1,18 @@
+import {OrdersService} from "../services/orders/orders.service";
 import {Customer} from "./Customer";
-import {Product} from "./Product";
+import {OrderItem} from "./OrderItem";
 
 export class Order {
   customer: Customer;
-  order_date: Date;
-  products: Product[];
+  order_date: string;
+  order_items: OrderItem[];
 
-  constructor(customer: Customer, order_date: Date, products: Product[]) {
-    this.customer = customer;
+  constructor(order_date: string, order_items: OrderItem[]) {
     this.order_date = order_date;
-    this.products = products;
+    this.order_items = order_items;
   }
+
+
+
 
 }

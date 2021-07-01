@@ -45,39 +45,30 @@ export class NewProductComponent implements OnInit {
     private brandService: BrandService,
     private productService: ProductService,
     public fb: FormBuilder,
-
-  ) {
-    /* if (!this.authenticated) {
-      this.location.replaceState('/'); // clears browser history so they can't navigate with back button
-      this.router.navigate(['']);
-    } */
-
-    this.newProductForm = this.fb.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      category: ['', [Validators.required]],
-      brand: ['', [Validators.required]],
-      quantity: ['', [Validators.required, Validators.pattern(/\d/), Validators.min(0)]],
-      price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(0)]],
-      image: ['', [Validators.required, Validators.pattern(urlRegex)]]
-
-    })
-
+    ) 
+    {
+      this.newProductForm = this.fb.group({
+        name: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        category: ['', [Validators.required]],
+        brand: ['', [Validators.required]],
+        quantity: ['', [Validators.required, Validators.pattern(/\d/), Validators.min(0)]],
+        price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(0)]],
+        image: ['', [Validators.required, Validators.pattern(urlRegex)]]
+      });
   }
 
-  
   ngOnInit(): void {
-    
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
       }
     );
 
+    this.checkAuthUserService.check();
+    this.getCategories();
+    this.getBrands();
 
-    this.checkAuthUserService.check()
-    this.categoryService.getCategories().subscribe(res => (this.categories = res));
-    this.brandService.getBrands().subscribe(res => (this.brands = res));
   }
 
   onSubmit(): void {
@@ -86,7 +77,6 @@ export class NewProductComponent implements OnInit {
     this.newProductForm.value.category = [this.newProductForm.value.category]
     // @ts-ignore
     if (this.newProductForm.invalid) {
-      console.log("invalido");
       return;
     }
     this.success = true;
@@ -99,7 +89,6 @@ export class NewProductComponent implements OnInit {
         (err: HttpErrorResponse) => {
           this.error = true;
         });
-
   }
 
   goBack(): void {

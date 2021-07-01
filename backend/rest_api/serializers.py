@@ -25,6 +25,10 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = ('user',)
 
+    def to_representation(self, instance):
+        self.fields['user'] =  UserSerializer(read_only=True)
+        return super(CustomerSerializer, self).to_representation(instance)    
+
 
 class ManagerSerializer(serializers.ModelSerializer):
     class Meta:

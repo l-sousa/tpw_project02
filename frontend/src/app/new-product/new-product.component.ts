@@ -45,31 +45,25 @@ export class NewProductComponent implements OnInit {
     private brandService: BrandService,
     private productService: ProductService,
     public fb: FormBuilder,
-
-  ) {
-
-    this.newProductForm = this.fb.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      category: ['', [Validators.required]],
-      brand: ['', [Validators.required]],
-      quantity: ['', [Validators.required, Validators.pattern(/\d/), Validators.min(0)]],
-      price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(0)]],
-      image: ['', [Validators.required, Validators.pattern(urlRegex)]]
-
-    })
-
+    ) 
+    {
+      this.newProductForm = this.fb.group({
+        name: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        category: ['', [Validators.required]],
+        brand: ['', [Validators.required]],
+        quantity: ['', [Validators.required, Validators.pattern(/\d/), Validators.min(0)]],
+        price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/), Validators.min(0)]],
+        image: ['', [Validators.required, Validators.pattern(urlRegex)]]
+      });
   }
 
-
   ngOnInit(): void {
-
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
       }
     );
-
 
     this.checkAuthUserService.check();
     this.getCategories();
@@ -95,7 +89,6 @@ export class NewProductComponent implements OnInit {
         (err: HttpErrorResponse) => {
           this.error = true;
         });
-
   }
 
   goBack(): void {

@@ -10,6 +10,10 @@ import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.
 import {MatSidenav} from '@angular/material/sidenav';
 import {GetUserTypeService} from '../services/get-user-type/get-user-type.service';
 
+// CHILD - DIALOG
+import { MatDialog  } from '@angular/material/dialog';
+import { DialogBodyAccountComponent } from '../dialog-body-account/dialog-body-account.component';
+
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
@@ -28,6 +32,7 @@ export class MainContentComponent {
   authenticated: boolean;
   error: boolean | undefined;
   username: string;
+  user_id: number;
   is_customer: boolean;
 
   constructor(
@@ -36,7 +41,8 @@ export class MainContentComponent {
     private logoutService: LogoutService,
     private checkAuthUserService: CheckAuthUserService,
     private getUserTypeService: GetUserTypeService,
-    private router: Router) {
+    private router: Router,
+    private dialog: MatDialog) {
     this.authenticated = false;
     this.is_customer = true;
   }
@@ -51,6 +57,12 @@ export class MainContentComponent {
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = auth;
+      }
+    );
+
+    Emitters.userEmitterId.subscribe(
+      (id: number) => {
+        this.user_id = id;
       }
     );
 
@@ -101,5 +113,15 @@ export class MainContentComponent {
 
   closeSidenav() {
     this.sidenav.close();
+  }
+
+  accountDetailsDialog(): void {
+    const dialogRef = this.dialog.open(DialogBodyAccountComponent, {
+      data: {"username": `${this.username}`, "id": `${this.user_id}`}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
   }
 }

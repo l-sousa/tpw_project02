@@ -44,6 +44,7 @@ import { NewProductComponent } from './new-product/new-product.component';
 import { AdminProductsComponent } from './admin-products/admin-products.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogBodyComponent } from './dialog-body/dialog-body.component';
+import { DialogBodyAccountComponent } from './dialog-body-account/dialog-body-account.component';
 import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
@@ -68,7 +69,7 @@ import { OrdersComponent } from './orders/orders.component';
     NewProductComponent,
     AdminProductsComponent,
     DialogBodyComponent,
-    OrdersComponent
+    DialogBodyAccountComponent
   ],
   imports: [
     AppRoutingModule,

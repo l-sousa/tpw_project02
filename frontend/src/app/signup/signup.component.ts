@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SignupService} from "../services/signup/signup.service";
 import {HttpErrorResponse} from "@angular/common/http";
-
-import {User} from "../models/User";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +17,12 @@ export class SignupComponent implements OnInit {
   submitted = false;
   error = false;
 
-  constructor(private service: SignupService, private form_builder: FormBuilder) {
+  constructor(
+    private service: SignupService, 
+    private form_builder: FormBuilder, 
+    private router: Router
+  ) 
+  {
     this.signupForm = form_builder.group({
         username: ['', Validators.required, Validators.minLength(4)],
         password: ['', [Validators.required, Validators.minLength(5)]],
@@ -37,6 +41,7 @@ export class SignupComponent implements OnInit {
     this.service.signup(this.signupForm.value)
       .subscribe(res => {
           console.log(res);
+          this.router.navigate(['/login']);
         },
         (err: HttpErrorResponse) => {
           this.error = true;

@@ -1,17 +1,4 @@
-<style>
-  a:link, a:visited {
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  a:hover, a:active {
-    color: lightblue;
-  }
-</style>
-
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container" >
 
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
@@ -43,10 +30,21 @@
       <a style="margin-right: 1%" routerLink="/login" *ngIf="!authenticated">| Login |</a>
       <a style="margin-right: 1%" routerLink="/signup" *ngIf="!authenticated">Signup |</a>
       <a style="margin-right: 1%" routerLink="/admin/stock" *ngIf="authenticated && !is_customer">Verificar Stock |</a>
-      <a style="margin-right: 1%" routerLink="/orders" *ngIf="authenticated && is_customer">Histórico Encomendas |</a>
-      <a style="margin-right: 1%" routerLink="/admin/addproduct" *ngIf="authenticated && !is_customer">Adicionar Novo
-        Produto |</a>
-      <a style="margin-right: 1%" *ngIf="authenticated" (click)="logout()">Logout |</a>
+      <a style="margin-right: 1%" routerLink="/admin/addproduct" *ngIf="authenticated && !is_customer">Adicionar Novo Produto |</a>
+      <a style="margin-right: 1%" *ngIf="authenticated" (click)="logout()" style="cursor: pointer;">Logout |</a>
+      <button *ngIf="authenticated" mat-icon-button [matMenuTriggerFor]="menu" aria-label="User additional information">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="accountDetailsDialog()">
+          <mat-icon>how_to_reg</mat-icon>
+          <span>Detalhes da Conta</span>
+        </button>
+        <button mat-menu-item routerLink="/orders">
+          <mat-icon>store_mall_directory</mat-icon>
+          <span>Histórico de Encomendas</span>
+        </button>
+      </mat-menu>
 
     </mat-toolbar>
     <!-- Add Content Here -->

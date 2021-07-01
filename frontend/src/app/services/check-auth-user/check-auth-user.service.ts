@@ -34,14 +34,17 @@ export class CheckAuthUserService {
         headers: new HttpHeaders({'jwt': ((this.getCookie('jwt')) ? this.getCookie('jwt').toString() : this.getCookie('jwt'))}),
       }).subscribe(
         res => {
+          console.log(res);
           Emitters.authEmitter.emit(true);
           Emitters.userEmitter.emit(res["username"]);
+          Emitters.userEmitterId.emit(res["id"]);
         }
       );
     } else {
       Emitters.authEmitter.emit(false);
     }
   }
+
 }
 
 

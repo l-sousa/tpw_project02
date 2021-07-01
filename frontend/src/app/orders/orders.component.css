@@ -21,3 +21,9 @@
   color: white;
 }
 
+.button__go-back {
+  float: right;
+  margin-right: 15px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}

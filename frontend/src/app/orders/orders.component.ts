@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Emitters} from '../emitters/emitters';
+import {Location} from '@angular/common';
+// SERVICES
 import {CheckAuthUserService} from '../services/check-auth-user/check-auth-user.service';
 import {OrdersService} from '../services/orders/orders.service';
 import {ProductService} from '../services/product/product.service';
@@ -15,15 +17,18 @@ export class OrdersComponent implements OnInit {
   username: string;
   orders: any[];
 
-  constructor(private checkAuthUserService: CheckAuthUserService, private ordersService: OrdersService, private productService: ProductService) {
-
-  }
+  constructor(
+    private checkAuthUserService: CheckAuthUserService, 
+    private ordersService: OrdersService, 
+    private productService: ProductService,
+    private location: Location
+  ) 
+  { }
 
   ngOnInit(): void {
     this.subscribeToEmitters();
     this.checkAuthUserService.check();
   }
-
 
   subscribeToEmitters() {
     Emitters.authEmitter.subscribe(
@@ -43,6 +48,12 @@ export class OrdersComponent implements OnInit {
       }
     );
   }
+
+
+  goBack(): void {
+		this.location.back();
+  }
+
 
 
 }

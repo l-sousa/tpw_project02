@@ -182,8 +182,6 @@ def del_category(request, id):
 
 
 # web service to get a specific brand
-
-
 @api_view(['GET'])
 def get_brand(request):
     id = int(request.GET['id'])
@@ -196,8 +194,6 @@ def get_brand(request):
 
 
 # web service to get products of a specific brand
-
-
 @api_view(['GET'])
 def get_brandproducts(request):
     id = int(request.GET['id'])
@@ -210,8 +206,6 @@ def get_brandproducts(request):
 
 
 # web service to get a list of brands
-
-
 @api_view(['GET'])
 def get_brands(request):
     brands = Brand.objects.all()

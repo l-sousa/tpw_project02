@@ -18,12 +18,12 @@ export class OrdersComponent implements OnInit {
   orders: any[];
 
   constructor(
-    private checkAuthUserService: CheckAuthUserService, 
-    private ordersService: OrdersService, 
+    private checkAuthUserService: CheckAuthUserService,
+    private ordersService: OrdersService,
     private productService: ProductService,
     private location: Location
-  ) 
-  { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscribeToEmitters();
@@ -43,6 +43,7 @@ export class OrdersComponent implements OnInit {
         this.ordersService.getOrders(this.username).subscribe(
           (res: any) => {
             this.orders = res;
+            console.log(res)
           }
         )
       }
@@ -51,9 +52,8 @@ export class OrdersComponent implements OnInit {
 
 
   goBack(): void {
-		this.location.back();
+    this.location.back();
   }
-
 
 
 }

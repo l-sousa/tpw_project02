@@ -288,19 +288,47 @@ def get_order(request):
 
 @api_view(['GET'])
 def get_userorders(request):
-    user_id = int(request.GET['user_id'])
+    username = request.GET['username']
     try:
-        orders = Order.objects.get(user_id=user_id)
+        orders = Order.objects.filter(customer__user__username=username)
+
     except Order.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = OrderSerializer(orders, many=True)
-    return Response(serializer.data)
+
+    resp = []
+
+    print(serializer.data)
+    for i in serializer.data:
+        i = dict(i)
+        items_ids = i['order_items']
+        order_items = [OrderItem.objects.filter(id=id).first().__dict__ for id in items_ids]
+        total = 0
+        for item in order_items:
+            if '_state' in item.keys():
+                del item['_state']
+
+            p_id = item['product_id']
+            product = Product.objects.filter(id=p_id).first().__dict__
+
+            if '_state' in product:
+                del product['_state']
+
+            item['product'] = product
+            del item['product_id']
+
+            total += item['quantity'] * item['product']['price']
+        i['total'] = total
+        i['order_items'] = order_items
+
+        resp.append(i)
+
+    return Response(resp)
 
 
 # web service to create a order
 @api_view(['POST'])
 def create_order(request):
-
     user = User.objects.get(username=request.data['username'])
     customer = Customer.objects.get(user=user).pk
 
@@ -318,7 +346,7 @@ def create_order(request):
         order_item.save()
         order_items.append(order_item.pk)
 
-    order_data = {'customer': customer, 'order_items': order_items}
+    order_data = {'customer': customer, 'order_items': order_items, 'order_date': datetime.datetime.now()}
 
     serializer = OrderSerializer(data=order_data)
     if serializer.is_valid():
@@ -469,6 +497,8 @@ def get_user_type(request):
 '''
     CUSTOMER
 '''
+
+
 # web service to get a specific customer
 @api_view(['GET'])
 def get_customer(request):
